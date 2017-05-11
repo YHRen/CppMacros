@@ -15,11 +15,12 @@
 #include <cmath>
 #include <cassert>
 
-#define INF                         (int)1e9
+#define INF                         (int)1000000007
 #define EPS                         1e-9
 
 #define bg     begin()
 #define pb     push_back
+#define mp     make_pair
 
 #define all(c)                      c.begin(), c.end()
 #define forall(i,a,b)               for(int i=a;i<b;i++)
@@ -50,9 +51,9 @@ struct debugger
   }
 } dbg;
 
+// std::ios::sync_with_stdio(false);
 /******* Actual Code Starts Here *********/
 int main( int argc, char * argv[] ){
-  // std::ios::sync_with_stdio(false);
 
   return 0;
 }
