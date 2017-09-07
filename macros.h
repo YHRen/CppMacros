@@ -12,8 +12,10 @@
 #include <algorithm>
 #include <numeric>
 #include <functional>
+#include <cstring>
 #include <cmath>
 #include <cassert>
+
 
 #define INF                         (int)1000000007
 #define EPS                         1e-9
@@ -25,6 +27,7 @@
 #define all(c)                      c.begin(), c.end()
 #define forall(i,a,b)               for(int i=a;i<b;i++)
 #define in(a,b)                     ( (b).find(a) != (b).end())
+#define input( a )                  for( auto & x : a ) cin >> x;
 
 using namespace std;
 
