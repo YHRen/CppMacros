@@ -5,6 +5,10 @@ all: main.cpp
 debug: main.cpp
 	$(CXX) -std=c++14 -DDEBUG main.cpp -o main 
 
-copy: 
+copy:
 	cat main.cpp | pbcopy
+
+cp:
+	cat main.cpp | xclip -selection clipboard
+
 
