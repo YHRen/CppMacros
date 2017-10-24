@@ -55,6 +55,7 @@ struct debugger
 } dbg;
 
 // std::ios::sync_with_stdio(false);
+// std::cin.tie(NULL);
 /******* Actual Code Starts Here *********/
 int main( int argc, char * argv[] ){
 
