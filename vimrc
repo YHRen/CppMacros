@@ -10,6 +10,7 @@ set showcmd
 set cpt-=i
 set cpt-=t
 set background=dark
+let mapleader = ","
 
 syntax enable
 let g:solarized_termcolors=256
@@ -48,13 +49,11 @@ endif
 
 filetype plugin indent on
 au FileType cpp setl sw=2 sts=2 expandtab
-au FileType python setl sw=4 sts=4 et
+au FileType python setl sw=4 sts=4 expandtab
 
-" clang-format 
-autocmd FileType c,cpp,objc nnoremap <buffer><Leader>ck :<C-u>ClangFormat<CR>
-autocmd FileTYpe c,cpp,objc vnoremap <buffer><Leader>ck :ClangFormat<CR>
-
-
+" clang-format, apt install clang-format
+autocmd FileType c,cpp,objc nnoremap <buffer><C-K> :<C-u>ClangFormat<CR>
+autocmd FileTYpe c,cpp,objc vnoremap <buffer><C-K> :ClangFormat<CR>
 
 function! TwiddleCase(str)
   if a:str ==# toupper(a:str)
@@ -67,3 +66,9 @@ function! TwiddleCase(str)
   return result
 endfunction
 vnoremap ~ y:call setreg('', TwiddleCase(@"), getregtype(''))<CR>gv""Pgv
+
+
+" common cpp snippets
+au FileType cpp nnoremap <buffer><Leader>uf :<C-u>r ~/github/yhren/CppMacros/data_structures/uf.h<CR>13jo
+au FileType cpp nnoremap <buffer><Leader>sieve :<C-u>r ~/github/yhren/CppMacros/number_theory/sieve.h<CR>11jo
+
