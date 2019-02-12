@@ -4,6 +4,7 @@
 #include <queue>
 #include <stack>
 #include <unordered_map>
+#include <bitset>
 #include <limits>
 #include <iostream> 
 #include <iomanip>  

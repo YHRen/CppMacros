@@ -71,4 +71,15 @@ vnoremap ~ y:call setreg('', TwiddleCase(@"), getregtype(''))<CR>gv""Pgv
 " common cpp snippets
 au FileType cpp nnoremap <buffer><Leader>uf :<C-u>r ~/github/yhren/CppMacros/data_structures/uf.h<CR>13jo
 au FileType cpp nnoremap <buffer><Leader>sieve :<C-u>r ~/github/yhren/CppMacros/number_theory/sieve.h<CR>11jo
+au FileType cpp nnoremap <buffer><Leader>prime :<C-u>r ~/github/yhren/CppMacros/number_theory/is_prime.h<CR>7jo
+au FileType cpp nnoremap <buffer><Leader>t2g :<C-u>r ~/github/yhren/CppMacros/graph_theory/t2g.h<CR>25jo
+
+" to remove markdown italic
+" autocmd FileType markdown |
+"       \hi def link markdownItalic              NONE |
+"       \hi def link markdownItalicDelimiter     NONE |
+"       \hi def link markdownBold                NONE |
+"       \hi def link markdownBoldDelimiter       NONE |
+"       \hi def link markdownBoldItalic          NONE |
+"       \hi def link markdownBoldItalicDelimiter NONE
 
