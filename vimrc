@@ -83,3 +83,48 @@ au FileType cpp nnoremap <buffer><Leader>t2g :<C-u>r ~/github/yhren/CppMacros/gr
 "       \hi def link markdownBoldItalic          NONE |
 "       \hi def link markdownBoldItalicDelimiter NONE
 
+
+"" timestamp toggle
+""" credit: https://www.codesections.com/blog/vim-timestamped/
+let g:time_stamp_enabled = 0
+let g:time_stamp_start = 0
+command! TimeStampToggle call TimeStampToggle()
+
+function TimeStampToggle()
+  let g:time_stamp_enabled = !g:time_stamp_enabled
+  let g:time_stamp_start = strftime("%s") 
+     " Time in seconds since the Unix epoch
+endfunction
+
+inoremap <expr> <CR> g:time_stamp_enabled ? "\<ESC>:call TimeStamp()\<CR>a" : "\<CR>"
+
+function! TimeStamp()
+     let l:current_sec = printf("%02d", strftime("%s") - g:time_stamp_start)
+     let l:current_min = 0
+     let l:current_hr  = 0
+
+     while l:current_sec >= 60
+       let l:current_sec -= 60
+       let l:current_min += 1
+     endwhile
+
+     while l:current_min >= 60
+       let l:current_min -= 60
+       let l:current_hr  += 1
+     endwhile
+
+     let l:current_sec = printf("%02d", l:current_sec)
+     let l:current_min = printf("%02d", l:current_min)
+     let l:current_hr  = printf("%02d", l:current_hr)
+
+     " Go to the beginning of the line,
+     " print the current zero-padded time,
+     " print `  -  ` as a separator
+     " and move the cursor over for the next line (with separator)
+     execute "normal! 0i\<SPACE>\<ESC>0dwi\
+           \<C-R>=l:current_hr\<CR>:\<C-R>=l:current_min\<CR>:\<C-R>=l:current_sec \<CR>\
+           \<SPACE>\<SPACE>—\<SPACE>\<SPACE>\<ESC>o\<SPACE>\<SPACE>\<SPACE>\<SPACE>\
+           \<SPACE>\<SPACE>\<SPACE>\<SPACE>\<SPACE>\<SPACE>\<SPACE>\<SPACE>\<SPACE>"
+
+ endfunction
+

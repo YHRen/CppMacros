@@ -3,6 +3,7 @@
 #include <map>
 #include <queue>
 #include <stack>
+#include <unordered_set>
 #include <unordered_map>
 #include <bitset>
 #include <limits>
@@ -21,7 +22,6 @@
 #define INF                         (int)1000000007
 #define EPS                         1e-9
 
-#define bg     begin()
 #define pb     push_back
 #define mp     make_pair
 
@@ -32,10 +32,11 @@
 
 using namespace std;
 
-typedef vector<int> vi;
+typedef vector<int>   vi;
 typedef pair<int,int> ii;
-typedef vector<vi>  vvi;
-typedef vector<ii>  vii;
+typedef vector<vi>    vvi;
+typedef vector<ii>    vii;
+typedef long long     ll;
 
 #ifdef DEBUG
 #define debug(args...)            {dbg,args; clog<<endl;}

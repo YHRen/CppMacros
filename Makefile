@@ -9,6 +9,7 @@ copy:
 	cat main.cpp | pbcopy
 
 cp:
-	cat main.cpp | xclip -selection clipboard
+	grep -B 10000 -e '^int main(' main.cpp | head -n -1 | xclip -selection clipboard
+	#cat main.cpp | xclip -selection clipboard
 
 
