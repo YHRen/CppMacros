@@ -58,6 +58,13 @@ struct debugger
   }
 } dbg;
 
+auto ____ =[]()
+{
+    std::ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    return nullptr;
+}();
+
 // std::ios::sync_with_stdio(false);
 // std::cin.exceptions(cin.failbit);
 // std::cin.tie(NULL);
