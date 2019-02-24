@@ -26,8 +26,10 @@
 #define mp     make_pair
 
 #define all(c)                      c.begin(), c.end()
-#define forall(i,a,b)               for(int i=a;i<b;i++)
+#define forall(i,a,b)               for(int i=a;i<(b);++i)
+#define trav(a,x)                   for(auto & a: x)
 #define in(a,b)                     ( (b).find(a) != (b).end())
+#define sz(c)                       (int)(c).size()
 #define input( a )                  for( auto & x : a ) cin >> x;
 
 using namespace std;
@@ -57,6 +59,7 @@ struct debugger
 } dbg;
 
 // std::ios::sync_with_stdio(false);
+// std::cin.exceptions(cin.failbit);
 // std::cin.tie(NULL);
 /******* Actual Code Starts Here *********/
 int main( int argc, char * argv[] ){
