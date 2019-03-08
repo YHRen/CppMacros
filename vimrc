@@ -70,6 +70,7 @@ vnoremap ~ y:call setreg('', TwiddleCase(@"), getregtype(''))<CR>gv""Pgv
 
 " common cpp snippets
 au FileType cpp nnoremap <buffer><Leader>uf :<C-u>r ~/github/yhren/CppMacros/data_structures/uf.h<CR>13jo
+au FileType cpp nnoremap <buffer><Leader>trie :<C-u>r ~/github/yhren/CppMacros/data_structures/trie.h<CR>9jo
 au FileType cpp nnoremap <buffer><Leader>sieve :<C-u>r ~/github/yhren/CppMacros/number_theory/sieve.h<CR>11jo
 au FileType cpp nnoremap <buffer><Leader>prime :<C-u>r ~/github/yhren/CppMacros/number_theory/is_prime.h<CR>7jo
 au FileType cpp nnoremap <buffer><Leader>t2g :<C-u>r ~/github/yhren/CppMacros/graph_theory/t2g.h<CR>25jo
@@ -128,3 +129,6 @@ function! TimeStamp()
 
  endfunction
 
+""" ale plugin
+let g:ale_completion_enabled = 1
+let g:ale_sign_column_always = 1
