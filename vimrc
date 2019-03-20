@@ -12,6 +12,10 @@ set cpt-=t
 set background=dark
 let mapleader = ","
 
+:imap <C-d> <C-[>diwi
+:imap <C-f> <C-[>dwi
+:imap <C-g> <C-[>d$i
+
 syntax enable
 let g:solarized_termcolors=256
 let g:solarized_termtrans=1
@@ -33,6 +37,9 @@ call minpac#add('tpope/vim-unimpaired')
 call minpac#add('tpope/vim-dispatch')
 call minpac#add('radenling/vim-dispatch-neovim')
 call minpac#add('w0rp/ale')
+call minpac#add('lervag/vimtex')
+call minpac#add('godlygeek/tabular')
+"call minpac#add('junegunn/vim-easy-align')
 call minpac#add('altercation/vim-colors-solarized')
 call minpac#add('rhysd/vim-clang-format')
 call minpac#add('tpope/vim-scriptease', {'type': 'opt'})
@@ -40,20 +47,25 @@ call minpac#add('k-takata/minpac', {'type': 'opt'})
 command! PackUpdate call minpac#update()
 command! PackClean call minpac#clean()
 
+" map terminal mode
 if has('nvim')
   tnoremap <Esc> <C-\><C-n>
   tnoremap <C-v> <Esc> <Esc>
   highlight! link TermCursor Cursor
   highlight! TermCursorNC guibg=red guifg=white ctermbg=1 ctermfg=15
+  set clipboard+=unnamedplus
+  let g:vimtex_compiler_progname = 'nvr'
 endif
 
-filetype plugin indent on
-au FileType cpp setl sw=2 sts=2 expandtab
-au FileType python setl sw=4 sts=4 expandtab
-
-" clang-format, apt install clang-format
-autocmd FileType c,cpp,objc nnoremap <buffer><C-K> :<C-u>ClangFormat<CR>
-autocmd FileTYpe c,cpp,objc vnoremap <buffer><C-K> :ClangFormat<CR>
+if has("autocmd")
+    filetype plugin indent on
+    au FileType cpp setl sw=2 sts=2 expandtab
+    au FileType python setl sw=4 sts=4 expandtab
+    
+    " clang-format, apt install clang-format
+    autocmd FileType c,cpp,objc nnoremap <buffer><C-K> :<C-u>ClangFormat<CR>
+    autocmd FileTYpe c,cpp,objc vnoremap <buffer><C-K> :ClangFormat<CR>
+endif
 
 function! TwiddleCase(str)
   if a:str ==# toupper(a:str)
@@ -130,5 +142,28 @@ function! TimeStamp()
  endfunction
 
 """ ale plugin
-let g:ale_completion_enabled = 1
-let g:ale_sign_column_always = 1
+let g:ale_completion_enabled   = 1
+let g:ale_sign_column_always   = 1
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_enter        = 0
+
+""" Tabularize
+if exists(":Tabularize")
+    nmap <Leader>t= :Tabularize /=<CR>
+    vmap <Leader>t= :Tabularize /=<CR>
+    nmap <Leader>t: :Tabularize /:\zs<CR>
+    vmap <Leader>t: :Tabularize /:\zs<CR>
+endif
+
+inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
+
+function! s:align()
+  let p = '^\s*|\s.*\s|\s*$'
+  if exists(':Tabularize') && getline('.') =~# '^\s*|' && (getline(line('.')-1) =~# p || getline(line('.')+1) =~# p)
+    let column = strlen(substitute(getline('.')[0:col('.')],'[^|]','','g'))
+    let position = strlen(matchstr(getline('.')[0:col('.')],'.*|\s*\zs.*'))
+    Tabularize/|/l1
+    normal! 0
+    call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
+  endif
+endfunction

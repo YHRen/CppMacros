@@ -69,6 +69,7 @@ auto ____ =[]()
 // std::cin.exceptions(cin.failbit);
 // std::cin.tie(NULL);
 /******* Actual Code Starts Here *********/
+
 int main( int argc, char * argv[] ){
 
   return 0;
