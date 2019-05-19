@@ -6,4 +6,8 @@ struct Trie {
     children.resize(ALPH_SZ, nullptr);
     val = -1;
   }
+  ~Trie(){
+    for(auto & ptr : children ) if( ptr ) delete(ptr)
+    children.clear();
+  }
 };

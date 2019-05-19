@@ -12,7 +12,7 @@ debug: main.cpp
 	$(CXX) -std=c++14 -DDEBUG main.cpp -o main 
 
 copy:
-	cat main.cpp | pbcopy
+	cat main.cpp | xclip -selection clipboard
 
 cp:
 	grep -B 10000 -e '^int main(' main.cpp | head -n -1 | xclip -selection clipboard

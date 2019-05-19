@@ -39,7 +39,7 @@ call minpac#add('radenling/vim-dispatch-neovim')
 call minpac#add('w0rp/ale')
 call minpac#add('lervag/vimtex')
 call minpac#add('godlygeek/tabular')
-"call minpac#add('junegunn/vim-easy-align')
+call minpac#add('machakann/vim-highlightedyank')
 call minpac#add('altercation/vim-colors-solarized')
 call minpac#add('rhysd/vim-clang-format')
 call minpac#add('tpope/vim-scriptease', {'type': 'opt'})
@@ -54,6 +54,7 @@ if has('nvim')
   highlight! link TermCursor Cursor
   highlight! TermCursorNC guibg=red guifg=white ctermbg=1 ctermfg=15
   set clipboard+=unnamedplus
+  set inccommand=nosplit
   let g:vimtex_compiler_progname = 'nvr'
 endif
 
@@ -82,10 +83,12 @@ vnoremap ~ y:call setreg('', TwiddleCase(@"), getregtype(''))<CR>gv""Pgv
 
 " common cpp snippets
 au FileType cpp nnoremap <buffer><Leader>uf :<C-u>r ~/github/yhren/CppMacros/data_structures/uf.h<CR>13jo
-au FileType cpp nnoremap <buffer><Leader>trie :<C-u>r ~/github/yhren/CppMacros/data_structures/trie.h<CR>9jo
+au FileType cpp nnoremap <buffer><Leader>trie :<C-u>r ~/github/yhren/CppMacros/data_structures/trie.h<CR>12jo
 au FileType cpp nnoremap <buffer><Leader>sieve :<C-u>r ~/github/yhren/CppMacros/number_theory/sieve.h<CR>11jo
 au FileType cpp nnoremap <buffer><Leader>prime :<C-u>r ~/github/yhren/CppMacros/number_theory/is_prime.h<CR>7jo
 au FileType cpp nnoremap <buffer><Leader>t2g :<C-u>r ~/github/yhren/CppMacros/graph_theory/t2g.h<CR>25jo
+au FileType cpp nnoremap <buffer><Leader>rabinkarp :<C-u>r ~/github/yhren/CppMacros/strings/rabin_karp.h<CR>16jo
+au FileType cpp nnoremap <buffer><Leader>suffixarray :<C-u>r ~/github/yhren/CppMacros/strings/suffix_array.h<CR>24jo
 
 " to remove markdown italic
 " autocmd FileType markdown |
