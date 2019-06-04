@@ -10,6 +10,7 @@ set showcmd
 set cpt-=i
 set cpt-=t
 set background=dark
+set relativenumber
 let mapleader = ","
 
 :imap <C-d> <C-[>diwi
@@ -35,6 +36,9 @@ pa minpac
 call minpac#init()
 call minpac#add('tpope/vim-unimpaired')
 call minpac#add('tpope/vim-dispatch')
+call minpac#add('tpope/vim-surround')
+call minpac#add('tpope/vim-repeat')
+call minpac#add('tpope/vim-commentary')
 call minpac#add('radenling/vim-dispatch-neovim')
 call minpac#add('w0rp/ale')
 call minpac#add('lervag/vimtex')
@@ -82,6 +86,7 @@ vnoremap ~ y:call setreg('', TwiddleCase(@"), getregtype(''))<CR>gv""Pgv
 
 
 " common cpp snippets
+au FileType cpp nnoremap <buffer><Leader>gp 59Gp<CR>
 au FileType cpp nnoremap <buffer><Leader>uf :<C-u>r ~/github/yhren/CppMacros/data_structures/uf.h<CR>13jo
 au FileType cpp nnoremap <buffer><Leader>trie :<C-u>r ~/github/yhren/CppMacros/data_structures/trie.h<CR>12jo
 au FileType cpp nnoremap <buffer><Leader>sieve :<C-u>r ~/github/yhren/CppMacros/number_theory/sieve.h<CR>11jo
