@@ -43,6 +43,7 @@ call minpac#add('radenling/vim-dispatch-neovim')
 call minpac#add('w0rp/ale')
 call minpac#add('lervag/vimtex')
 call minpac#add('godlygeek/tabular')
+call minpac#add('Vimjas/vim-python-pep8-indent')
 call minpac#add('machakann/vim-highlightedyank')
 call minpac#add('altercation/vim-colors-solarized')
 call minpac#add('rhysd/vim-clang-format')
@@ -70,6 +71,21 @@ if has("autocmd")
     " clang-format, apt install clang-format
     autocmd FileType c,cpp,objc nnoremap <buffer><C-K> :<C-u>ClangFormat<CR>
     autocmd FileTYpe c,cpp,objc vnoremap <buffer><C-K> :ClangFormat<CR>
+
+
+    au BufNewFile,BufRead *.py
+        \ set tabstop=4
+        \ set softtabstop=4
+        \ set shiftwidth=4
+        \ set textwidth=79
+        \ set expandtab
+        \ set autoindent
+        \ set fileformat=unix
+
+    au BufNewFile,BufRead *.js, *.html, *.css
+        \ set tabstop=2
+        \ set softtabstop=2
+        \ set shiftwidth=2
 endif
 
 function! TwiddleCase(str)
