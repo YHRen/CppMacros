@@ -171,6 +171,11 @@ let g:ale_completion_enabled   = 1
 let g:ale_sign_column_always   = 1
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_enter        = 0
+let g:ale_linters = {'c': ['clang'], 'cpp': ['clang', 'g++']}
+let g:ale_c_gcc_options = '-Wall -std=c99'
+let g:ale_c_clang_options = '-Wall -std=c99'
+let g:ale_cpp_clang_options = '-Wall -std=c++17'
+let g:ale_cpp_gcc_options = '-Wall -std=c++17'
 
 """ Tabularize
 if exists(":Tabularize")
