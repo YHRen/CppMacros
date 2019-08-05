@@ -194,6 +194,6 @@ function! s:align()
 endfunction
 
 syntax enable
-let g:solarized_termcolors=256
-let g:solarized_termtrans=1
-colorscheme solarized
+"""let g:solarized_termcolors=256
+"""let g:solarized_termtrans=1
+"""colorscheme solarized
