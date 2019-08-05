@@ -17,12 +17,6 @@ let mapleader = ","
 :imap <C-f> <C-[>dwi
 :imap <C-g> <C-[>d$i
 
-syntax enable
-let g:solarized_termcolors=256
-let g:solarized_termtrans=1
-colorscheme solarized
-
-
 "{{{ netrw file browser
 let g:netrw_banner=0
 let g:netrw_browse_split=1
@@ -34,6 +28,7 @@ let g:netrw_list_hide=netrw_gitignore#Hide()
 
 pa minpac
 call minpac#init()
+call minpac#add('lifepillar/vim-solarized8')
 call minpac#add('tpope/vim-unimpaired')
 call minpac#add('tpope/vim-dispatch')
 call minpac#add('tpope/vim-surround')
@@ -197,3 +192,8 @@ function! s:align()
     call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
   endif
 endfunction
+
+syntax enable
+let g:solarized_termcolors=256
+let g:solarized_termtrans=1
+colorscheme solarized
