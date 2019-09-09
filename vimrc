@@ -17,9 +17,11 @@ let mapleader = ","
 :imap <C-f> <C-[>dwi
 :imap <C-g> <C-[>d$i
 
-let g:solarized_termcolors=256
-let g:solarized_termtrans=1
-colorscheme solarized
+try 
+    colorscheme solarized
+    let g:solarized_termcolors=256
+    let g:solarized_termtrans=1
+endtry
 
 "{{{ netrw file browser
 let g:netrw_banner=0
