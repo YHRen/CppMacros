@@ -17,7 +17,6 @@ let mapleader = ","
 :imap <C-f> <C-[>dwi
 :imap <C-g> <C-[>d$i
 
-syntax enable
 let g:solarized_termcolors=256
 let g:solarized_termtrans=1
 colorscheme solarized
@@ -39,7 +38,7 @@ call minpac#add('tpope/vim-dispatch')
 call minpac#add('tpope/vim-surround')
 call minpac#add('tpope/vim-repeat')
 call minpac#add('tpope/vim-commentary')
-call minpac#add('yuratomo/w3m.vim')
+call minpac#add('vimwiki/vimwiki')
 call minpac#add('radenling/vim-dispatch-neovim')
 call minpac#add('w0rp/ale')
 call minpac#add('lervag/vimtex')
@@ -66,6 +65,7 @@ endif
 
 if has("autocmd")
     filetype plugin indent on
+    syntax enable
     au FileType cpp setl sw=2 sts=2 expandtab
     au FileType python setl sw=4 sts=4 expandtab
     
