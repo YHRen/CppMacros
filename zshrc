@@ -98,3 +98,63 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=98'
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+gitdir="$HOME/github/yhren"
+pandoc="/usr/local/bin/pandoc"
+
+export PS1='\[\033[1;34m\]\h$\[\033[0m\]'
+
+if [ "$(uname 2>/dev/null)" == "Darwin" ]; then
+	alias o="open"
+        alias u="brew update"
+else
+	alias o="xdg-open"
+	alias u="yes | sudo apt update &&\
+		yes | sudo apt upgrade &&\
+		yes | sudo autoremove"
+	alias pbcopy='xclip -selection clipboard'
+	alias pbpaste='xclip -selection clipboard -o'
+fi
+alias l="ls-lthsrG"
+alias h="history"
+alias g="grep"
+alias v="nvim"
+alias m="make"
+alias bc="bc -q"
+alias crt="cp $gitdir/CppMacros/macros.h ./main.cpp; cp $gitdir/CppMacros/Makefile ."
+alias vulcan="ssh -C -D 5150 vulcan"
+
+md2pdf () { fname=$1; echo $fname;
+	$pandoc "$1" \
+		-V geometry:margin=1in \
+		-s --pdf-engine=xelatex \
+		--variable urlcolor=cyan \
+		-F mermaid-filter \
+		-o ${fname%.md}.pdf; }
+
+md2html () { fname=$1; echo $fname;
+	$pandoc "$1" \
+		-V geometry:margin=1in \
+		--variable urlcolor=cyan \
+		-F mermaid-filter \
+		-o ${fname%.md}.html; }
+
+tunnel () {
+	if [[ $# < 1 ]]; then
+		echo "specific a hostname";
+	elif [[ $# < 2 ]]; then
+		echo "setup ssh tunneling to <$1> using port [9999]"
+		ssh -N -L 9999:localhost:9999 $1
+	elif [[ $# < 3 ]]; then
+		echo "setup ssh tunneling to <$1> using port [$2]"
+		ssh -N -L ${2}:localhost:${2} $1
+	else:
+		echo " too many arguments "
+	fi; }
+
+if command -v nvim > /dev/null 2>&1;
+then
+	export VISUAL=nvim
+else
+	export VISUAL=vim
+fi
