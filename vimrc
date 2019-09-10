@@ -1,5 +1,5 @@
 set nu
-set nocp
+set nocp """ nocompatible
 set t_Co=256
 set tabstop=4
 set shiftwidth=4
@@ -41,6 +41,7 @@ call minpac#add('tpope/vim-surround')
 call minpac#add('tpope/vim-repeat')
 call minpac#add('tpope/vim-commentary')
 call minpac#add('vimwiki/vimwiki')
+call minpac#add('itchyny/calendar.vim')
 call minpac#add('radenling/vim-dispatch-neovim')
 call minpac#add('w0rp/ale')
 call minpac#add('lervag/vimtex')
@@ -179,6 +180,11 @@ let g:ale_c_clang_options = '-Wall -std=c99'
 let g:ale_cpp_clang_options = '-Wall -std=c++17'
 let g:ale_cpp_gcc_options = '-Wall -std=c++17'
 
+""" vimiwiki plugin
+let g:vimwiki_list = [{'path': '~/Documents/vimwiki/notes/', 'syntax': 'markdown', 'ext': '.md', 'diary_rel_path': '.'}]
+let g:vimwiki_global_ext = 0
+let g:vimwiki_use_calendar = 1
+
 """ Tabularize
 if exists(":Tabularize")
     nmap <Leader>t= :Tabularize /=<CR>
@@ -201,6 +207,3 @@ function! s:align()
 endfunction
 
 syntax enable
-"""let g:solarized_termcolors=256
-"""let g:solarized_termtrans=1
-"""colorscheme solarized
