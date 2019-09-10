@@ -104,17 +104,20 @@ pandoc="/usr/local/bin/pandoc"
 
 export PS1='\[\033[1;34m\]\h$\[\033[0m\]'
 
-if [ "$(uname 2>/dev/null)" == "Darwin" ]; then
+if [ "$(uname 2>/dev/null)" = "Darwin" ]; then
 	alias o="open"
-        alias u="brew update"
-else
+    alias u="brew update"
+elif [ "$(uname 2>/dev/null)" = "Linux" ]; then
 	alias o="xdg-open"
 	alias u="yes | sudo apt update &&\
 		yes | sudo apt upgrade &&\
 		yes | sudo autoremove"
 	alias pbcopy='xclip -selection clipboard'
 	alias pbpaste='xclip -selection clipboard -o'
+else
+
 fi
+
 alias l="ls-lthsrG"
 alias h="history"
 alias g="grep"
