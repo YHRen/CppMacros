@@ -118,7 +118,7 @@ else
 
 fi
 
-alias l="ls-lthsrG"
+alias l="ls -lthsrG"
 alias h="history"
 alias g="grep"
 alias v="nvim"
