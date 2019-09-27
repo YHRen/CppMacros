@@ -77,6 +77,10 @@ if has("autocmd")
     autocmd FileType c,cpp,objc nnoremap <buffer><C-K> :<C-u>ClangFormat<CR>
     autocmd FileTYpe c,cpp,objc vnoremap <buffer><C-K> :ClangFormat<CR>
 
+    " python run
+    autocmd FileTYpe python nnoremap <buffer><C-J> :sp <CR> :w<CR> :te python "%"<CR>
+
+    nnoremap <C-W>  :bd! <CR>
 
     au BufNewFile,BufRead *.py
         \ set tabstop=4

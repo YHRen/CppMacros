@@ -111,7 +111,7 @@ elif [ "$(uname 2>/dev/null)" = "Linux" ]; then
 	alias o="xdg-open"
 	alias u="yes | sudo apt update &&\
 		yes | sudo apt upgrade &&\
-		yes | sudo autoremove"
+		yes | sudo apt autoremove"
 	alias pbcopy='xclip -selection clipboard'
 	alias pbpaste='xclip -selection clipboard -o'
 else
