@@ -80,7 +80,7 @@ if has("autocmd")
     " python run
     autocmd FileTYpe python nnoremap <buffer><C-J> :sp <CR> :w<CR> :te python "%"<CR>
 
-    nnoremap <C-W>  :bd! <CR>
+    nnoremap <C-H>  :bd! <CR>
 
     au BufNewFile,BufRead *.py
         \ set tabstop=4
