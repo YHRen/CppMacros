@@ -76,9 +76,10 @@ if has("autocmd")
     " clang-format, apt install clang-format
     autocmd FileType c,cpp,objc nnoremap <buffer><C-K> :<C-u>ClangFormat<CR>
     autocmd FileTYpe c,cpp,objc vnoremap <buffer><C-K> :ClangFormat<CR>
+    autocmd FileTYpe c,cpp,objc nnoremap <buffer><C-J> :w<CR> :!make d<CR> :sp<CR> :te ./main <input00.txt <CR>
 
     " python run
-    autocmd FileTYpe python nnoremap <buffer><C-J> :sp <CR> :w<CR> :te python "%"<CR>
+    autocmd FileTYpe python nnoremap <buffer><C-J> :w<CR> :sp<CR> :te python3 "%"<CR>
 
     nnoremap <C-H>  :bd! <CR>
 
