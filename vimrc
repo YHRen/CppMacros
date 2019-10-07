@@ -42,6 +42,7 @@ call minpac#add('tpope/vim-surround')
 call minpac#add('tpope/vim-repeat')
 call minpac#add('tpope/vim-commentary')
 call minpac#add('vimwiki/vimwiki')
+call minpac#add('dpelle/vim-LanguageTool')
 call minpac#add('itchyny/calendar.vim')
 call minpac#add('radenling/vim-dispatch-neovim')
 call minpac#add('w0rp/ale')
@@ -211,5 +212,13 @@ function! s:align()
     call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
   endif
 endfunction
+
+""" LanguageTool
+""" Usage: 
+"""   :LanguageToolCheck
+"""   :lne next error
+:let g:languagetool_jar='$HOME/.bin/LanguageTool-4.7/languagetool-commandline.jar'
+
+
 
 syntax enable
