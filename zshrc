@@ -161,3 +161,5 @@ then
 else
 	export VISUAL=vim
 fi
+
+export TERM=xterm-256color
