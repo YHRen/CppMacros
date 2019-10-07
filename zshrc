@@ -163,3 +163,6 @@ else
 fi
 
 export TERM=xterm-256color
+
+# conda env
+source .bash_profile
