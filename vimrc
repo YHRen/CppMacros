@@ -16,6 +16,7 @@ let mapleader = ","
 :imap <C-d> <C-[>diwi
 :imap <C-f> <C-[>dwi
 :imap <C-g> <C-[>d$i
+:nnoremap <buffer><Leader>yy :%y<CR> """ copy all
 
 try 
     colorscheme solarized
@@ -41,6 +42,7 @@ call minpac#add('tpope/vim-dispatch')
 call minpac#add('tpope/vim-surround')
 call minpac#add('tpope/vim-repeat')
 call minpac#add('tpope/vim-commentary')
+call minpac#add('scrooloose/nerdtree')
 call minpac#add('vimwiki/vimwiki')
 call minpac#add('dpelle/vim-LanguageTool')
 call minpac#add('itchyny/calendar.vim')
@@ -122,59 +124,11 @@ au FileType cpp nnoremap <buffer><Leader>t2g :<C-u>r ~/github/yhren/CppMacros/gr
 au FileType cpp nnoremap <buffer><Leader>rabinkarp :<C-u>r ~/github/yhren/CppMacros/strings/rabin_karp.h<CR>16jo
 au FileType cpp nnoremap <buffer><Leader>suffixarray :<C-u>r ~/github/yhren/CppMacros/strings/suffix_array.h<CR>24jo
 
-" to remove markdown italic
-" autocmd FileType markdown |
-"       \hi def link markdownItalic              NONE |
-"       \hi def link markdownItalicDelimiter     NONE |
-"       \hi def link markdownBold                NONE |
-"       \hi def link markdownBoldDelimiter       NONE |
-"       \hi def link markdownBoldItalic          NONE |
-"       \hi def link markdownBoldItalicDelimiter NONE
+""" NERDTree
+autocmd vimenter * NERDTree
+nnoremap <C-n> :NERDTreeToggle<CR>
+"""""""""""""""""""""""""""""""""""""""""""""
 
-
-"" timestamp toggle
-""" credit: https://www.codesections.com/blog/vim-timestamped/
-let g:time_stamp_enabled = 0
-let g:time_stamp_start = 0
-command! TimeStampToggle call TimeStampToggle()
-
-function TimeStampToggle()
-  let g:time_stamp_enabled = !g:time_stamp_enabled
-  let g:time_stamp_start = strftime("%s") 
-     " Time in seconds since the Unix epoch
-endfunction
-
-inoremap <expr> <CR> g:time_stamp_enabled ? "\<ESC>:call TimeStamp()\<CR>a" : "\<CR>"
-
-function! TimeStamp()
-     let l:current_sec = printf("%02d", strftime("%s") - g:time_stamp_start)
-     let l:current_min = 0
-     let l:current_hr  = 0
-
-     while l:current_sec >= 60
-       let l:current_sec -= 60
-       let l:current_min += 1
-     endwhile
-
-     while l:current_min >= 60
-       let l:current_min -= 60
-       let l:current_hr  += 1
-     endwhile
-
-     let l:current_sec = printf("%02d", l:current_sec)
-     let l:current_min = printf("%02d", l:current_min)
-     let l:current_hr  = printf("%02d", l:current_hr)
-
-     " Go to the beginning of the line,
-     " print the current zero-padded time,
-     " print `  -  ` as a separator
-     " and move the cursor over for the next line (with separator)
-     execute "normal! 0i\<SPACE>\<ESC>0dwi\
-           \<C-R>=l:current_hr\<CR>:\<C-R>=l:current_min\<CR>:\<C-R>=l:current_sec \<CR>\
-           \<SPACE>\<SPACE>—\<SPACE>\<SPACE>\<ESC>o\<SPACE>\<SPACE>\<SPACE>\<SPACE>\
-           \<SPACE>\<SPACE>\<SPACE>\<SPACE>\<SPACE>\<SPACE>\<SPACE>\<SPACE>\<SPACE>"
-
- endfunction
 
 """ ale plugin
 let g:ale_completion_enabled   = 1
@@ -186,11 +140,13 @@ let g:ale_c_gcc_options = '-Wall -std=c99'
 let g:ale_c_clang_options = '-Wall -std=c99'
 let g:ale_cpp_clang_options = '-Wall -std=c++17'
 let g:ale_cpp_gcc_options = '-Wall -std=c++17'
+"""""""""""""""""""""""""""""""""""""""""""""
 
 """ vimiwiki plugin
 let g:vimwiki_list = [{'path': '~/Documents/vimwiki/notes/', 'syntax': 'markdown', 'ext': '.md', 'diary_rel_path': '.'}]
 let g:vimwiki_global_ext = 0
 let g:vimwiki_use_calendar = 1
+"""""""""""""""""""""""""""""""""""""""""""""
 
 """ Tabularize
 if exists(":Tabularize")
@@ -201,7 +157,6 @@ if exists(":Tabularize")
 endif
 
 inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
-
 function! s:align()
   let p = '^\s*|\s.*\s|\s*$'
   if exists(':Tabularize') && getline('.') =~# '^\s*|' && (getline(line('.')-1) =~# p || getline(line('.')+1) =~# p)
@@ -212,13 +167,12 @@ function! s:align()
     call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
   endif
 endfunction
+"""""""""""""""""""""""""""""""""""""""""""""
 
 """ LanguageTool
 """ Usage: 
 """   :LanguageToolCheck
 """   :lne next error
 :let g:languagetool_jar='$HOME/.bin/LanguageTool-4.7/languagetool-commandline.jar'
-
-
 
 syntax enable
