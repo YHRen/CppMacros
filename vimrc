@@ -125,7 +125,7 @@ au FileType cpp nnoremap <buffer><Leader>rabinkarp :<C-u>r ~/github/yhren/CppMac
 au FileType cpp nnoremap <buffer><Leader>suffixarray :<C-u>r ~/github/yhren/CppMacros/strings/suffix_array.h<CR>24jo
 
 """ NERDTree
-autocmd vimenter * NERDTree
+"""autocmd vimenter * NERDTree
 nnoremap <C-n> :NERDTreeToggle<CR>
 """""""""""""""""""""""""""""""""""""""""""""
 
