@@ -101,9 +101,11 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=98'
 
 gitdir="$HOME/github/yhren"
 pandoc="/usr/local/bin/pandoc"
+export TASKRC="$gitdir/CppMacros/taskrc"
 
 export PS1='\[\033[1;34m\]\h$\[\033[0m\]'
 
+## OS dependent
 if [ "$(uname 2>/dev/null)" = "Darwin" ]; then
 	alias o="open"
     alias u="brew update"

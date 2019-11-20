@@ -1,0 +1,25 @@
+{
+  "encrypt": false,
+  "journals": {
+    "default": "~/sync/Journals/journal.txt",
+    "work": {
+      "journal": "~/sync/Journals/work.txt",
+      "encrypt": true
+    },
+    "private": {
+      "journal": "~/sync/Journals/private.txt",
+      "encrypt": true
+    },
+    "english": {
+      "journal": "~/sync/Journals/english.txt",
+      "encrypt": false
+    }
+  },
+  "editor": "vim",
+  "default_hour": 9,
+  "default_minute": 0,
+  "timeformat": "%Y-%m-%d %H:%M",
+  "tagsymbols": "@",
+  "highlight": true,
+  "linewrap": 79
+}
