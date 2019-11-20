@@ -1,2 +1,7 @@
 # Files
 data.location=~/sync/tasks/
+uda.totalactivetime.type=duration
+uda.totalactivetime.label=Total active time
+uda.totalactivetime.values=
+report.list.lables=ID,Active,Age,Time Spent,D,P,Project,Tags,R,Sch,Due,Until,Description,Urg
+report.list.columns=id,start.age,entry.age,totalactivetime,depends.indicator,priority,project,tags,recur.indicator,scheduled.countdown,due,until.remaining,description.count,urgency
