@@ -10,3 +10,10 @@ for online coding competition.
 ### heavy
 * Calibre
 * zotero storage folder
+
+
+### set global gitignore
+git config --global core.excludesfile gitignore
+
+### link init.vim
+ln -s init.vim ~/.config/nvim/init.vim

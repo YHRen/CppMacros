@@ -42,6 +42,9 @@ call minpac#add('tpope/vim-dispatch')
 call minpac#add('tpope/vim-surround')
 call minpac#add('tpope/vim-repeat')
 call minpac#add('tpope/vim-commentary')
+call minpac#add('Shougo/deoplete.nvim') 
+call minpac#add('SirVer/ultisnips')
+call minpac#add('honza/vim-snippets')
 call minpac#add('scrooloose/nerdtree')
 call minpac#add('vimwiki/vimwiki')
 call minpac#add('dpelle/vim-LanguageTool')
@@ -114,16 +117,9 @@ endfunction
 vnoremap ~ y:call setreg('', TwiddleCase(@"), getregtype(''))<CR>gv""Pgv
 
 
-" common cpp snippets
+" what is this for???
 au FileType cpp nnoremap <buffer><Leader>gp 59Gp<CR>
-au FileType cpp nnoremap <buffer><Leader>uf :<C-u>r ~/github/yhren/CppMacros/data_structures/uf.h<CR>13jo
-au FileType cpp nnoremap <buffer><Leader>trie :<C-u>r ~/github/yhren/CppMacros/data_structures/trie.h<CR>12jo
-au FileType cpp nnoremap <buffer><Leader>ft :<C-u>r ~/github/yhren/CppMacros/data_structures/ft.h<CR>21jo
-au FileType cpp nnoremap <buffer><Leader>sieve :<C-u>r ~/github/yhren/CppMacros/number_theory/sieve.h<CR>11jo
-au FileType cpp nnoremap <buffer><Leader>prime :<C-u>r ~/github/yhren/CppMacros/number_theory/is_prime.h<CR>7jo
-au FileType cpp nnoremap <buffer><Leader>t2g :<C-u>r ~/github/yhren/CppMacros/graph_theory/t2g.h<CR>25jo
-au FileType cpp nnoremap <buffer><Leader>rabinkarp :<C-u>r ~/github/yhren/CppMacros/strings/rabin_karp.h<CR>16jo
-au FileType cpp nnoremap <buffer><Leader>suffixarray :<C-u>r ~/github/yhren/CppMacros/strings/suffix_array.h<CR>24jo
+"""""""""""""""""""""""""""""""""""""""""""""
 
 """ NERDTree
 """autocmd vimenter * NERDTree
@@ -169,11 +165,32 @@ function! s:align()
   endif
 endfunction
 """""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""
+
+"""""" deoplete
+let g:deoplete#enable_at_startup = 1
+"""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""
 
 """ LanguageTool
 """ Usage: 
 """   :LanguageToolCheck
 """   :lne next error
 :let g:languagetool_jar='$HOME/.bin/LanguageTool-4.7/languagetool-commandline.jar'
+"""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""
+
+""" Ultisnips
+" Trigger configuration. Do not use <tab> if you use
+" https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger='<tab>'
+" shortcut to go to next position
+let g:UltiSnipsJumpForwardTrigger='<c-j>'
+" shortcut to go to previous position
+let g:UltiSnipsJumpBackwardTrigger='<c-k>'
+" add additional snippets
+let g:UltiSnipsSnippetDirectories = [$HOME.'/github/yhren/CppMacros/vim_snippets', 'Ultisnips']
+"""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""
 
 syntax enable

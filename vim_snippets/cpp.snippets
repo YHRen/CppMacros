@@ -1,0 +1,249 @@
+snippet uf "union-find" b
+struct UF {
+	vi e;
+	UF(int n) : e(n, -1) {}
+	bool same_set(int a, int b) { return find(a) == find(b); }
+	int size(int x) { return -e[find(x)]; }
+	int find(int x) { return e[x] < 0 ? x : e[x] = find(e[x]); }
+	void join(int a, int b) {
+		a = find(a), b = find(b);
+		if (a == b) return;
+		if (e[a] > e[b]) swap(a, b);
+		e[a] += e[b]; e[b] = a;
+	}
+};
+endsnippet
+
+snippet ft "Fenwick Tree" b
+struct FT {
+	vector<ll> s;
+	FT(int n) : s(n, 0) {}
+	void update(int pos, ll dif) { // a[pos] += dif
+		for (; pos < sz(s); pos |= pos + 1) s[pos] += dif;
+	}
+	ll query(int pos) { // sum of values in [0, pos)
+		ll res = 0;
+		for (; pos > 0; pos &= pos - 1) res += s[pos-1];
+		return res;
+	}
+	int lower_bound(ll sum) {// min pos st sum of [0, pos] >= sum
+		// Returns n if no sum is >= sum, or -1 if empty sum is.
+		if (sum <= 0) return -1;
+		int pos = 0;
+		for (int pw = 1 << 25; pw; pw >>= 1) {
+			if (pos + pw <= sz(s) && s[pos + pw-1] < sum)
+				pos += pw, sum -= s[pos-1];
+		}
+		return pos;
+	}
+};
+endsnippet
+
+snippet rh "RollingHash" b
+// ローリングハッシュ
+struct RollingHash {
+    static const int base1 = 1007, base2 = 2009;
+    static const int mod1 = 1000000007, mod2 = 1000000009;
+    vector<long long> hash1, hash2, power1, power2;
+
+    // construct
+    RollingHash(const string &S) {
+        int n = (int)S.size();
+        hash1.assign(n+1, 0);
+        hash2.assign(n+1, 0);
+        power1.assign(n+1, 1);
+        power2.assign(n+1, 1);
+        for (int i = 0; i < n; ++i) {
+            hash1[i+1] = (hash1[i] * base1 + S[i]) % mod1;
+            hash2[i+1] = (hash2[i] * base2 + S[i]) % mod2;
+            power1[i+1] = (power1[i] * base1) % mod1;
+            power2[i+1] = (power2[i] * base2) % mod2;
+        }
+    }
+    
+    // get hash of S[left:right]
+    inline pair<long long, long long> get(int l, int r) const {
+        long long res1 = hash1[r] - hash1[l] * power1[r-l] % mod1;
+        if (res1 < 0) res1 += mod1;
+        long long res2 = hash2[r] - hash2[l] * power2[r-l] % mod2;
+        if (res2 < 0) res2 += mod2;
+        return {res1, res2};
+    }
+};
+endsnippet
+
+snippet trie "Trie" b
+static constexpr const int ALPH_SZ = 27;
+struct Trie {
+  int val;
+  vector<Trie*> children;
+  Trie(){ 
+    children.resize(ALPH_SZ, nullptr);
+    val = -1;
+  }
+  ~Trie(){
+    for(auto & ptr : children ) if( ptr ) delete(ptr)
+    children.clear();
+  }
+};
+endsnippet
+
+snippet t2g "convert tree to graph" b
+vvi t2g(TreeNode* root){
+  // convert leetcode tree to graph
+  vvi g;
+  int idx = 0;
+  queue<pair<TreeNode*,int>> Q; Q.push(mp(root,idx));
+  g.pb({});
+  while(!Q.empty()){
+    auto tmp = Q.front(); Q.pop();
+    auto ptr = tmp.first;
+    int  x   = tmp.second;
+    if( ptr->left != NULL ){
+      g.pb({x});
+      idx++;
+      g[x].pb(idx);
+      Q.push(mp(ptr->left, idx));
+    }
+    if( ptr->right != NULL) {
+      g.pb({x});
+      idx++;
+      g[x].pb(idx);
+      Q.push(mp(ptr->right,idx));
+    }
+  }
+  return g;
+}
+endsnippet
+
+snippet is_prime "test is prime"
+bool is_prime(int x){
+  if( x < 2 || x%2==0 ) return x==2;
+  for(int i = 3; i*i <= x; i += 2){
+    if( x%i==0 ) return false;
+  }
+  return true;
+}
+endsnippet
+
+
+snippet seive "eratosthenes_sieve" 
+static const int MAX_PR = 5000000;
+bitset<MAX_PR> isprime;
+vi eratosthenes_sieve(int lim) {
+	isprime.set(); isprime[0] = isprime[1] = 0;
+	for (int i = 4; i < lim; i += 2) isprime[i] = 0;
+	for (int i = 3; i*i < lim; i += 2) if (isprime[i])
+		for (int j = i*i; j < lim; j += i*2) isprime[j] = 0;
+	vi pr;
+	forall(i,2,lim) if (isprime[i]) pr.push_back(i);
+	return pr;
+}
+endsnippet
+
+snippet sa "suffix array" b
+struct SuffixArray {
+  vi sa, lcp;
+  SuffixArray(string& s, int lim=256) { // or basic_string<int>
+    int n = sz(s) + 1, k = 0, a, b;
+    vi x(all(s)+1), y(n), ws(max(n, lim)), rank(n);
+    sa = lcp = y, iota(all(sa), 0);
+    for (int j = 0, p = 0; p < n; j = max(1, j * 2), lim = p) {
+      p = j, iota(all(y), n - j);
+      forall(i,0,n) if (sa[i] >= j) y[p++] = sa[i] - j;
+      fill(all(ws), 0);
+      forall(i,0,n) ws[x[i]]++;
+      forall(i,1,lim) ws[i] += ws[i - 1];
+      for (int i = n; i--;) sa[--ws[x[y[i]]]] = y[i];
+      swap(x, y), p = 1, x[sa[0]] = 0;
+      forall(i,1,n) a = sa[i - 1], b = sa[i], x[b] =
+        (y[a] == y[b] && y[a + j] == y[b + j]) ? p - 1 : p++;
+    }
+    forall(i,1,n) rank[sa[i]] = i;
+    for (int i = 0, j; i < n - 1; lcp[rank[i++]] = k)
+      for (k && k--, j = sa[rank[i] - 1];
+          s[i + k] == s[j + k]; k++);
+  }
+};
+endsnippet
+
+snippet main "leetcode main" b
+#include <vector>
+#include <set>
+#include <map>
+#include <queue>
+#include <stack>
+#include <unordered_set>
+#include <unordered_map>
+#include <bitset>
+#include <limits>
+#include <iostream> 
+#include <iomanip>  
+#include <string>
+#include <sstream>  
+#include <algorithm>
+#include <numeric>
+#include <complex>
+#include <functional>
+#include <cstring>
+#include <cmath>
+#include <cassert>
+
+
+#define INF              (int)1000000007
+#define EPS              1e-9
+#define pb               push_back
+#define mp               make_pair
+#define all(c)           c.begin(), c.end()
+#define forall(i,a,b)    for(int i=a;i<(b);++i)
+#define trav(a,x)        for(auto & a: x)
+#define in(a,b)          ((b).find(a) != (b).end())
+#define sz(c)            (int)(c).size()
+#define input(a)         for(auto & x : a) cin >> x;
+
+using namespace std;
+
+typedef vector<int>      vi;
+typedef pair<int,int>    ii;
+typedef vector<vi>       vvi;
+typedef vector<ii>       vii;
+typedef long long        ll;
+
+#ifdef DEBUG
+#define trace(...)       __f(#__VA_ARGS__, __VA_ARGS__)
+#define debug(args...)   {dbg,args; clog<<endl;}
+#define print_( a )      for( auto & x : a ) clog << x << ' '; clog << '\n';
+#define printPair_( a )  for( auto & x : a ) clog << '(' << x.first << ',' << x.second << ')' << ' '; clog << '\n';
+#else
+#define trace(...)       
+#define debug(args...)            
+#define print_( a )               
+#define printPair_( a )           
+#endif
+
+struct debugger {
+  template<typename T> debugger& operator , (const T& x) {    
+    clog << x << " ";    return *this;    
+  }
+}dbg;
+
+template <typename Arg1>
+void __f(const char* name, Arg1&& arg1){
+    cerr << name << ": " << arg1 << endl;
+}
+
+template <typename Arg1, typename... Args>
+void __f(const char* names, Arg1&& arg1, Args&&... args){
+    const char* comma = strchr(names + 1, ',');
+    cerr.write(names, comma - names) << ": " << arg1 << " | ";
+    __f(comma + 1, args...);
+}
+
+auto ____ =[]() { std::ios::sync_with_stdio(0); cin.tie(0); return nullptr; }();
+
+int main( int argc, char * argv[] ){
+  int n; cin >> n; 
+  vi v(n); input(v);
+  return 0;
+}
+endsnippet
