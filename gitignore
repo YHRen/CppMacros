@@ -1,3 +1,4 @@
+## git config --global core.excludesfile <this_file>
 .DS_Store
 Thumbs.db
 *~
