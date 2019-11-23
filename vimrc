@@ -189,7 +189,10 @@ let g:UltiSnipsJumpForwardTrigger='<c-j>'
 " shortcut to go to previous position
 let g:UltiSnipsJumpBackwardTrigger='<c-k>'
 " add additional snippets
-let g:UltiSnipsSnippetDirectories = [$HOME.'/github/yhren/CppMacros/vim_snippets', 'Ultisnips']
+"let g:UltiSnipsSnippetDirectories = [$HOME.'/github/yhren/CppMacros/vim_snippets', 'Ultisnips']
+let g:UltiSnipsSnippetDirectories = [$HOME.'/github/yhren/CppMacros/vim_snippets']
+" set list all snippets
+let g:UltiSnipsListSnippets = '<c-l>'
 """""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""
 

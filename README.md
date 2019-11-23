@@ -17,3 +17,4 @@ git config --global core.excludesfile gitignore
 
 ### link init.vim
 ln -s init.vim ~/.config/nvim/init.vim
+ln -s ~/github/yhren/CppMacros/vim_snippets ~/.config/nvim/Ultisnips
