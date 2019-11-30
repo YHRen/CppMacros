@@ -43,6 +43,7 @@ call minpac#add('tpope/vim-surround')
 call minpac#add('tpope/vim-repeat')
 call minpac#add('tpope/vim-commentary')
 call minpac#add('Shougo/deoplete.nvim') 
+call minpac#add('deathlyfrantic/deoplete-spell')
 call minpac#add('SirVer/ultisnips')
 call minpac#add('honza/vim-snippets')
 call minpac#add('scrooloose/nerdtree')
@@ -98,10 +99,9 @@ if has("autocmd")
         \| set autoindent
         \| set fileformat=unix
 
-    au BufNewFile,BufRead *.js, *.html, *.css
-        \ set tabstop=2
-        \| set softtabstop=2
-        \| set shiftwidth=2
+    au FileType html,css,js
+        \ setlocal tabstop=2 softtabstop=2 shiftwidth=2
+
 endif
 
 function! TwiddleCase(str)
