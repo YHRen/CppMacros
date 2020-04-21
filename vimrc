@@ -1,3 +1,6 @@
+:if !empty(glob('$HOME/.vim/local.vim'))
+:   source $HOME/.vim/local.vim
+:endif
 set nu
 set nocp """ nocompatible
 set t_Co=256
@@ -48,6 +51,7 @@ call minpac#add('SirVer/ultisnips')
 call minpac#add('honza/vim-snippets')
 call minpac#add('scrooloose/nerdtree')
 call minpac#add('vimwiki/vimwiki')
+call minpac#add('itchyny/lightline.vim')
 call minpac#add('dpelle/vim-LanguageTool')
 call minpac#add('itchyny/calendar.vim')
 call minpac#add('radenling/vim-dispatch-neovim')
@@ -88,6 +92,8 @@ if has("autocmd")
     " python run
     autocmd FileTYpe python nnoremap <buffer><C-J> :w<CR> :sp<CR> :te python3 "%"<CR>
 
+    " shell run
+    autocmd FileTYpe sh nnoremap <buffer><C-J> :w<CR> :sp<CR> :te bash "%"<CR>
     nnoremap <C-H>  :bd! <CR>
 
     au BufNewFile,BufRead *.py
@@ -99,8 +105,10 @@ if has("autocmd")
         \| set autoindent
         \| set fileformat=unix
 
-    au FileType html,css,js
-        \ setlocal tabstop=2 softtabstop=2 shiftwidth=2
+    au BufNewFile,BufRead *.js, *.html, *.css
+        \ set tabstop=2
+        \| set softtabstop=2
+        \| set shiftwidth=2
 
 endif
 
@@ -143,6 +151,12 @@ let g:ale_cpp_gcc_options = '-Wall -std=c++17'
 let g:vimwiki_list = [{'path': '~/Documents/vimwiki/notes/', 'syntax': 'markdown', 'ext': '.md', 'diary_rel_path': '.'}]
 let g:vimwiki_global_ext = 0
 let g:vimwiki_use_calendar = 1
+"""""""""""""""""""""""""""""""""""""""""""""
+
+""" lightline
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ }
 """""""""""""""""""""""""""""""""""""""""""""
 
 """ Tabularize
@@ -197,4 +211,3 @@ let g:UltiSnipsListSnippets = '<c-l>'
 """""""""""""""""""""""""""""""""""""""""""""
 
 syntax enable
-source $HOME.'/.vim/local_vimrc'
