@@ -197,3 +197,4 @@ let g:UltiSnipsListSnippets = '<c-l>'
 """""""""""""""""""""""""""""""""""""""""""""
 
 syntax enable
+source $HOME.'/.vim/local_vimrc'
