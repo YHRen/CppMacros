@@ -1,7 +1,7 @@
 :if !empty(glob('$HOME/.vim/local.vim'))
 :   source $HOME/.vim/local.vim
 :endif
-set nu
+
 set nocp """ nocompatible
 set t_Co=256
 set tabstop=4
@@ -13,13 +13,17 @@ set showcmd
 set cpt-=i
 set cpt-=t
 set background=dark
-set relativenumber
+set nu rnu " hybrid mode
 let mapleader = ","
+
 
 :imap <C-d> <C-[>diwi
 :imap <C-f> <C-[>dwi
 :imap <C-g> <C-[>d$i
 :nnoremap <buffer><Leader>yy :%y<CR> """ copy all
+vnoremap J :m '>+1 <CR>gv=gv
+vnoremap K :m '<-2 <CR>gv=gv
+
 
 try 
     colorscheme solarized
@@ -137,7 +141,7 @@ nnoremap <C-n> :NERDTreeToggle<CR>
 
 """ ale plugin
 let g:ale_completion_enabled   = 1
-let g:ale_sign_column_always   = 1
+let g:ale_sign_column_always   = 0
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_enter        = 0
 let g:ale_linters = {'c': ['clang'], 'cpp': ['clang', 'g++']}
@@ -190,7 +194,7 @@ let g:deoplete#enable_at_startup = 1
 """ Usage: 
 """   :LanguageToolCheck
 """   :lne next error
-:let g:languagetool_jar='$HOME/.bin/LanguageTool-4.7/languagetool-commandline.jar'
+let g:languagetool_jar='$HOME/.bin/LanguageTool-4.7/languagetool-commandline.jar'
 """""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""
 
