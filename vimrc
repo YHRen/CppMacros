@@ -90,8 +90,8 @@ if has("autocmd")
     
     " clang-format, apt install clang-format
     autocmd FileType c,cpp,objc nnoremap <buffer><C-K> :<C-u>ClangFormat<CR>
-    autocmd FileTYpe c,cpp,objc vnoremap <buffer><C-K> :ClangFormat<CR>
-    autocmd FileTYpe c,cpp,objc nnoremap <buffer><C-J> :w<CR> :!make d<CR> :sp<CR> :te ./main <input00.txt <CR>
+    autocmd FileType c,cpp,objc vnoremap <buffer><C-K> :ClangFormat<CR>
+    autocmd FileType c,cpp,objc nnoremap <buffer><C-J> :w<CR> :!make d<CR> :sp<CR> :te ./main <input00.txt <CR>
 
     " python run
     autocmd FileTYpe python nnoremap <buffer><C-J> :w<CR> :sp<CR> :te python3 "%"<CR>
@@ -106,8 +106,14 @@ if has("autocmd")
         \| set shiftwidth=4
         \| set textwidth=79
         \| set expandtab
-        \| set autoindent
         \| set fileformat=unix
+        \| set foldmethod=indent
+        \| set encoding=utf-8
+        \| set foldlevel=99
+        \| nnoremap <space> za
+    
+    " remove trailing spaces
+    au FileType python,c,cpp,objc,ruby,php,java au BufWritePre <buffer> :call <SID>StripTrailingWhitespaces() 
 
     au BufNewFile,BufRead *.js, *.html, *.css
         \ set tabstop=2
@@ -183,7 +189,17 @@ function! s:align()
   endif
 endfunction
 """""""""""""""""""""""""""""""""""""""""""""
+
+
+""" Strip Trailing Whitespaces
+function! <SID>StripTrailingWhitespaces()
+    let l = line(".")
+    let c = col(".")
+    keepp %s/\s\+$//e
+    call cursor(l, c)
+endfun
 """""""""""""""""""""""""""""""""""""""""""""
+
 
 """""" deoplete
 let g:deoplete#enable_at_startup = 1
@@ -211,7 +227,6 @@ let g:UltiSnipsJumpBackwardTrigger='<c-k>'
 let g:UltiSnipsSnippetDirectories = [$HOME.'/github/yhren/CppMacros/vim_snippets']
 " set list all snippets
 let g:UltiSnipsListSnippets = '<c-l>'
-"""""""""""""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""""""""""
 
 syntax enable
