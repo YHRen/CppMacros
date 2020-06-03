@@ -123,7 +123,7 @@ fi
 alias l="ls -lthsrG"
 alias h="history"
 alias g="grep"
-alias v="nvim"
+alias v="nvim -O"
 alias m="make"
 alias bc="bc -q"
 alias crt="cp $gitdir/CppMacros/macros.h ./main.cpp; cp $gitdir/CppMacros/Makefile ."
