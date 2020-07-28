@@ -8,12 +8,20 @@ set tabstop=4
 set shiftwidth=4
 set expandtab
 set autoindent
+set copyindent
 set hlsearch
+set incsearch
 set showcmd
+set showmatch
+set nowrap
 set cpt-=i
 set cpt-=t
-set background=dark
 set nu rnu " hybrid mode
+set shiftround
+set ignorecase
+set smartcase 
+set hidden
+set backspace=indent,eol,start
 let mapleader = ","
 
 
@@ -21,16 +29,6 @@ let mapleader = ","
 :imap <C-f> <C-[>dwi
 :imap <C-g> <C-[>d$i
 :nnoremap <buffer><Leader>yy :%y<CR> """ copy all
-vnoremap J :m '>+1 <CR>gv=gv
-vnoremap K :m '<-2 <CR>gv=gv
-
-
-try 
-    colorscheme solarized
-    let g:solarized_termcolors=256
-    let g:solarized_termtrans=1
-catch
-endtry
 
 "{{{ netrw file browser
 let g:netrw_banner=0
@@ -49,29 +47,33 @@ call minpac#add('tpope/vim-dispatch')
 call minpac#add('tpope/vim-surround')
 call minpac#add('tpope/vim-repeat')
 call minpac#add('tpope/vim-commentary')
-call minpac#add('Shougo/deoplete.nvim') 
-call minpac#add('deathlyfrantic/deoplete-spell')
 call minpac#add('SirVer/ultisnips')
 call minpac#add('honza/vim-snippets')
 call minpac#add('scrooloose/nerdtree')
 call minpac#add('vimwiki/vimwiki')
 call minpac#add('itchyny/lightline.vim')
-call minpac#add('dpelle/vim-LanguageTool')
 call minpac#add('itchyny/calendar.vim')
 call minpac#add('radenling/vim-dispatch-neovim')
 call minpac#add('w0rp/ale')
 call minpac#add('lervag/vimtex')
 call minpac#add('godlygeek/tabular')
-call minpac#add('Vimjas/vim-python-pep8-indent')
 call minpac#add('machakann/vim-highlightedyank')
-call minpac#add('altercation/vim-colors-solarized')
+call minpac#add('Vimjas/vim-python-pep8-indent')
 call minpac#add('rhysd/vim-clang-format')
+"LSP language server protocal
+call minpac#add('junegunn/fzf')
+call minpac#add('Shougo/deoplete.nvim') 
+call minpac#add('deoplete-plugins/deoplete-jedi',
+        \ {'do': '!git submodule update --init'})
+call minpac#add('autozimu/LanguageClient-neovim',
+        \ {'branch': 'next', 'do': '!bash install.sh'}) 
+"optional packages
 call minpac#add('tpope/vim-scriptease', {'type': 'opt'})
 call minpac#add('k-takata/minpac', {'type': 'opt'})
 command! PackUpdate call minpac#update()
 command! PackClean call minpac#clean()
 
-" map terminal mode
+""" map terminal mode
 if has('nvim')
   tnoremap <Esc> <C-\><C-n>
   tnoremap <C-v> <Esc> <Esc>
@@ -120,8 +122,12 @@ if has("autocmd")
         \| set softtabstop=2
         \| set shiftwidth=2
 
+    " define *.make as makefile suffix
+    au BufNewFile,BufRead *.make
+        \ set filetype=make
 endif
 
+""" enhance `~` functionality
 function! TwiddleCase(str)
   if a:str ==# toupper(a:str)
     let result = tolower(a:str)
@@ -134,17 +140,28 @@ function! TwiddleCase(str)
 endfunction
 vnoremap ~ y:call setreg('', TwiddleCase(@"), getregtype(''))<CR>gv""Pgv
 
-
-" what is this for???
-au FileType cpp nnoremap <buffer><Leader>gp 59Gp<CR>
+"""""""""""""""""""""""""""""""""""""""""""""
+try 
+    set background=dark
+    colorscheme solarized8_high
+    let g:solarized_termtrans=0  " non-transparent
+    let g:solarized_termcolors=256
+    """ for tmux:
+    "   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    "   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+catch
+endtry
 """""""""""""""""""""""""""""""""""""""""""""
 
+
+"""""""""""""""""""""""""""""""""""""""""""""
 """ NERDTree
 """autocmd vimenter * NERDTree
 nnoremap <C-n> :NERDTreeToggle<CR>
 """""""""""""""""""""""""""""""""""""""""""""
 
 
+"""""""""""""""""""""""""""""""""""""""""""""
 """ ale plugin
 let g:ale_completion_enabled   = 1
 let g:ale_sign_column_always   = 0
@@ -157,18 +174,21 @@ let g:ale_cpp_clang_options = '-Wall -std=c++17'
 let g:ale_cpp_gcc_options = '-Wall -std=c++17'
 """""""""""""""""""""""""""""""""""""""""""""
 
+"""""""""""""""""""""""""""""""""""""""""""""
 """ vimiwiki plugin
 let g:vimwiki_list = [{'path': '~/Documents/vimwiki/notes/', 'syntax': 'markdown', 'ext': '.md', 'diary_rel_path': '.'}]
 let g:vimwiki_global_ext = 0
 let g:vimwiki_use_calendar = 1
 """""""""""""""""""""""""""""""""""""""""""""
 
+"""""""""""""""""""""""""""""""""""""""""""""
 """ lightline
 let g:lightline = {
       \ 'colorscheme': 'wombat',
       \ }
 """""""""""""""""""""""""""""""""""""""""""""
 
+"""""""""""""""""""""""""""""""""""""""""""""
 """ Tabularize
 if exists(":Tabularize")
     nmap <Leader>t= :Tabularize /=<CR>
@@ -191,6 +211,7 @@ endfunction
 """""""""""""""""""""""""""""""""""""""""""""
 
 
+"""""""""""""""""""""""""""""""""""""""""""""
 """ Strip Trailing Whitespaces
 function! <SID>StripTrailingWhitespaces()
     let l = line(".")
@@ -200,20 +221,14 @@ function! <SID>StripTrailingWhitespaces()
 endfun
 """""""""""""""""""""""""""""""""""""""""""""
 
-
 """""" deoplete
 let g:deoplete#enable_at_startup = 1
-"""""""""""""""""""""""""""""""""""""""""""""
+"let g:python3_host_prog = expand('~/anaconda3/bin/python')
+
 """""""""""""""""""""""""""""""""""""""""""""
 
-""" LanguageTool
-""" Usage: 
-"""   :LanguageToolCheck
-"""   :lne next error
-let g:languagetool_jar='$HOME/.bin/LanguageTool-4.7/languagetool-commandline.jar'
-"""""""""""""""""""""""""""""""""""""""""""""
-"""""""""""""""""""""""""""""""""""""""""""""
 
+"""""""""""""""""""""""""""""""""""""""""""""
 """ Ultisnips
 " Trigger configuration. Do not use <tab> if you use
 " https://github.com/Valloric/YouCompleteMe.
@@ -229,4 +244,19 @@ let g:UltiSnipsSnippetDirectories = [$HOME.'/github/yhren/CppMacros/vim_snippets
 let g:UltiSnipsListSnippets = '<c-l>'
 """""""""""""""""""""""""""""""""""""""""""""
 
+
+"""""""""""""""""""""""""""""""""""""""""""""
+""" LanguageClient-neovim
+let g:LanguageClient_serverCommands = {
+    \ 'python': ['pyls'],
+    \ 'go': ['gopls'],
+    \ 'cpp': ['clangd-10'],
+    \ 'sh': ['bash-language-server', 'start'],
+    \ }
+nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> gr :call LanguageClient#textDocument_rename()<CR>
+" Run gofmt on save
+autocmd BufWritePre *.go :call LanguageClient#textDocument_formatting_sync()
+"""""""""""""""""""""""""""""""""""""""""""""
 syntax enable

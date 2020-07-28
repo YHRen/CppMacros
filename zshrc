@@ -100,7 +100,8 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=98'
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 gitdir="$HOME/github/yhren"
-pandoc="/usr/local/bin/pandoc"
+#pandoc="/usr/local/bin/pandoc"
+pandoc="/home/yren/anaconda3/bin/pandoc"
 export TASKRC="$gitdir/CppMacros/taskrc"
 
 export PS1='\[\033[1;34m\]\h$\[\033[0m\]'
@@ -130,19 +131,41 @@ alias crt="cp $gitdir/CppMacros/macros.h ./main.cpp; cp $gitdir/CppMacros/Makefi
 alias vulcan="ssh -C -D 5150 vulcan"
 alias pylab="jupyter lab"
 
+es () {
+    # shorthand to exercism submit
+    lang_name=$(basename $(dirname $(pwd))) 
+    file_name=$(basename $(pwd))
+    case "${lang_name}" in
+        bash)
+            file_name="$file_name".sh
+            ;;
+        python)
+            file_name="$file_name".py
+            ;;
+        vimscript)
+            file_name="$file_name".vim
+            ;;
+        *)
+            echo "${lang_name}" unsupported yet 1>&2
+            file_name=""
+            ;;
+    esac
+    # replace hyphen with underscore
+    file_name=${file_name//-/_}
+    exercism submit $file_name
+}
+
 md2pdf () { fname=$1; echo $fname;
 	$pandoc "$1" \
 		-V geometry:margin=1in \
 		-s --pdf-engine=xelatex \
 		--variable urlcolor=cyan \
-		-F mermaid-filter \
 		-o ${fname%.md}.pdf; }
 
 md2html () { fname=$1; echo $fname;
 	$pandoc "$1" \
 		-V geometry:margin=1in \
 		--variable urlcolor=cyan \
-		-F mermaid-filter \
 		-o ${fname%.md}.html; }
 
 tunnel () {
