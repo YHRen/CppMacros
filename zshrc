@@ -130,30 +130,7 @@ alias bc="bc -q"
 alias crt="cp $gitdir/CppMacros/macros.h ./main.cpp; cp $gitdir/CppMacros/Makefile ."
 alias vulcan="ssh -C -D 5150 vulcan"
 alias pylab="jupyter lab"
-
-es () {
-    # shorthand to exercism submit
-    lang_name=$(basename $(dirname $(pwd))) 
-    file_name=$(basename $(pwd))
-    case "${lang_name}" in
-        bash)
-            file_name="$file_name".sh
-            ;;
-        python)
-            file_name="$file_name".py
-            ;;
-        vimscript)
-            file_name="$file_name".vim
-            ;;
-        *)
-            echo "${lang_name}" unsupported yet 1>&2
-            file_name=""
-            ;;
-    esac
-    # replace hyphen with underscore
-    file_name=${file_name//-/_}
-    exercism submit $file_name
-}
+alias es="$HOME/.local/bin/es.sh"
 
 md2pdf () { fname=$1; echo $fname;
 	$pandoc "$1" \
