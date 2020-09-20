@@ -21,6 +21,11 @@ es () {
     echo "submiting $file_name ..."
     read -p ">Are you sure?[Y/N]" -n 1 -r
     echo 
+    
+    if [[ ! -f "$file_name" ]]; then
+        echo "Could  not find file $file_name" >&2
+        return 1
+    fi
 
     if [[ $REPLY =~ ^[Yy]$ ]]; then
         exercism submit "$file_name"

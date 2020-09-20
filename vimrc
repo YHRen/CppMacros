@@ -21,8 +21,8 @@ set shiftround
 set ignorecase
 set smartcase 
 set hidden
-set backspace=indent,eol,start
-let mapleader = ","
+"set backspace=indent,eol,start " caussing error in nvim
+let mapleader = " "
 
 
 :imap <C-d> <C-[>diwi
@@ -58,10 +58,17 @@ call minpac#add('w0rp/ale')
 call minpac#add('lervag/vimtex')
 call minpac#add('godlygeek/tabular')
 call minpac#add('machakann/vim-highlightedyank')
+call minpac#add('justinmk/vim-sneak')
+call minpac#add('salsifis/vim-transpose') " testing
+call minpac#add('glacambre/firenvim', { 'type': 'opt', 'do': 'packadd firenvim | call firenvim#install(0)'})
+"LSP language server protocal
 call minpac#add('Vimjas/vim-python-pep8-indent')
 call minpac#add('rhysd/vim-clang-format')
-"LSP language server protocal
 call minpac#add('junegunn/fzf')
+call minpac#add('roxma/nvim-yarp')
+call minpac#add('ncm2/ncm2')
+call minpac#add('ncm2/ncm2-bufword')
+call minpac#add('ncm2/ncm2-path')
 call minpac#add('Shougo/deoplete.nvim') 
 call minpac#add('deoplete-plugins/deoplete-jedi',
         \ {'do': '!git submodule update --init'})
@@ -112,7 +119,7 @@ if has("autocmd")
         \| set foldmethod=indent
         \| set encoding=utf-8
         \| set foldlevel=99
-        \| nnoremap <space> za
+        \| nnoremap <Leader><space> za
     
     " remove trailing spaces
     au FileType python,c,cpp,objc,ruby,php,java au BufWritePre <buffer> :call <SID>StripTrailingWhitespaces() 
@@ -244,6 +251,28 @@ let g:UltiSnipsSnippetDirectories = [$HOME.'/github/yhren/CppMacros/vim_snippets
 let g:UltiSnipsListSnippets = '<c-l>'
 """""""""""""""""""""""""""""""""""""""""""""
 
+"""""""""""""""""""""""""""""""""""""""""""""
+""" NCM2
+" suppress the annoying 'match x of y', 'The only match' and 'Pattern not
+" found' messages
+
+set shortmess+=c
+
+" enable ncm2 for all buffers
+autocmd BufEnter * call ncm2#enable_for_buffer()
+
+" IMPORTANT: :help Ncm2PopupOpen for more information
+set completeopt=noinsert,menuone,noselect
+
+" When the <Enter> key is pressed while the popup menu is visible, it only
+" hides the menu. Use this mapping to close the menu and also start a new
+" line.
+inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
+
+" Use <TAB> to select the popup menu:
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+"""""""""""""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""""""""""
 """ LanguageClient-neovim
@@ -256,7 +285,41 @@ let g:LanguageClient_serverCommands = {
 nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
 nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
 nnoremap <silent> gr :call LanguageClient#textDocument_rename()<CR>
+nnoremap <silent> <C-K> :call LanguageClient#textDocument_formatting()<CR>
+set completefunc=LanguageClient#complete
+set formatexpr=LanguageClient#textDocument_rangeFormatting_sync()
 " Run gofmt on save
 autocmd BufWritePre *.go :call LanguageClient#textDocument_formatting_sync()
 """""""""""""""""""""""""""""""""""""""""""""
+
+"""""""""""""""""""""""""""""""""""""""""""""
+""" firenvim
+if exists('g:started_by_firenvim')
+  packadd firenvim
+endif
+"""""""""""""""""""""""""""""""""""""""""""""
+
+
+"""""""""""""""""""""""""""""""""""""""""""""
+""" vim-Transpose 
+"    :Transpose (for character array transposition),
+"    :TransposeWords (for word array transposition),
+"    :TransposeTab (for tab-separated table transposition),
+"    :TransposeCSV (for general delimited text transposition), and
+"    :TransposeInteractive (for custom transposition).
+"""""""""""""""""""""""""""""""""""""""""""""
+
+"""""""""""""""""""""""""""""""""""""""""""""
+""" vimtex
+let g:tex_flavor = 'latex'
+"""""""""""""""""""""""""""""""""""""""""""""
+
+"""""""""""""""""""""""""""""""""""""""""""""
+""" sneak (fast vim motion)
+let g:sneak#label = 1
+" s{char}{char} 2-char search. S, t, T
+" 5s{char}{char} search within column
+" 3dzqt to delete up to the third instance of "qt"
+"""""""""""""""""""""""""""""""""""""""""""""
+
 syntax enable

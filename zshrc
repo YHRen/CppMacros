@@ -121,6 +121,11 @@ else
 
 fi
 
+#  shorthand for submiting an exercise using exercism
+#  learn more about exercism: exercism.io/
+# important to use "command exercism" so the function does
+# not call itself recursively.
+
 alias l="ls -lthsrG"
 alias h="history"
 alias g="grep"
@@ -131,6 +136,19 @@ alias crt="cp $gitdir/CppMacros/macros.h ./main.cpp; cp $gitdir/CppMacros/Makefi
 alias vulcan="ssh -C -D 5150 vulcan"
 alias pylab="jupyter lab"
 alias es="$HOME/.local/bin/es.sh"
+
+function exercism {
+    case "$1" in
+        download) __exercism_download "$@" ;;
+        submit) es ;;
+        *) command exercism "$@" ;;
+    esac
+}
+
+function __exercism_download {
+    out=($(command exercism "$@"))
+    [[ -d "${out[-1]}" ]] && cd "${out[-1]}" || echo "cd fails" >&2
+}
 
 md2pdf () { fname=$1; echo $fname;
 	$pandoc "$1" \
