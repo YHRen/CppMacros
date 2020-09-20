@@ -24,11 +24,17 @@ set hidden
 "set backspace=indent,eol,start " caussing error in nvim
 let mapleader = " "
 
-
-:imap <C-d> <C-[>diwi
-:imap <C-f> <C-[>dwi
-:imap <C-g> <C-[>d$i
 :nnoremap <buffer><Leader>yy :%y<CR> """ copy all
+
+"{{{ tab 
+"" gt gT 3gt
+nmap <Leader>tn :tabnew<cr>
+nmap <Leader>tt :tabnew \| terminal<cr>
+nmap <Leader>te :tabedit 
+nmap <Leader>tc :tabclose<cr>
+nmap <Leader>tm :tabmove<cr>
+nmap <Leader>to :tabonly<cr>
+"}}}
 
 "{{{ netrw file browser
 let g:netrw_banner=0
@@ -320,6 +326,14 @@ let g:sneak#label = 1
 " s{char}{char} 2-char search. S, t, T
 " 5s{char}{char} search within column
 " 3dzqt to delete up to the third instance of "qt"
+" ysz{char}{char}] surround with [ ] upto 
+" replace f and t completely
+map f <Plug>Sneak_s
+map F <Plug>Sneak_S
+" map f <Plug>Sneak_f
+" map F <Plug>Sneak_F
+" map t <Plug>Sneak_t
+" map T <Plug>Sneak_T
 """""""""""""""""""""""""""""""""""""""""""""
 
 syntax enable
