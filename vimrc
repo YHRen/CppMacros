@@ -18,7 +18,7 @@ set cpt-=i
 set cpt-=t
 set nu rnu " hybrid mode
 set shiftround
-set ignorecase
+"set ignorecase
 set smartcase 
 set hidden
 "set backspace=indent,eol,start " caussing error in nvim
@@ -323,17 +323,18 @@ let g:tex_flavor = 'latex'
 """""""""""""""""""""""""""""""""""""""""""""
 """ sneak (fast vim motion)
 let g:sneak#label = 1
+let g:sneak#use_ic_scs = 1
 " s{char}{char} 2-char search. S, t, T
 " 5s{char}{char} search within column
 " 3dzqt to delete up to the third instance of "qt"
 " ysz{char}{char}] surround with [ ] upto 
 " replace f and t completely
-map f <Plug>Sneak_s
-map F <Plug>Sneak_S
-" map f <Plug>Sneak_f
-" map F <Plug>Sneak_F
-" map t <Plug>Sneak_t
-" map T <Plug>Sneak_T
+map s <Plug>Sneak_s
+map S <Plug>Sneak_S
+map f <Plug>Sneak_f
+map F <Plug>Sneak_F
+map t <Plug>Sneak_t
+map T <Plug>Sneak_T
 """""""""""""""""""""""""""""""""""""""""""""
 
 syntax enable
