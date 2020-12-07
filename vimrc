@@ -13,7 +13,8 @@ set hlsearch
 set incsearch
 set showcmd
 set showmatch
-set nowrap
+" set nowrap
+set wrap linebreak
 set cpt-=i
 set cpt-=t
 set nu rnu " hybrid mode
@@ -58,24 +59,23 @@ call minpac#add('honza/vim-snippets')
 call minpac#add('scrooloose/nerdtree')
 call minpac#add('vimwiki/vimwiki')
 call minpac#add('itchyny/lightline.vim')
-call minpac#add('itchyny/calendar.vim')
+" call minpac#add('itchyny/calendar.vim')
 call minpac#add('radenling/vim-dispatch-neovim')
-call minpac#add('w0rp/ale')
+" call minpac#add('w0rp/ale')
 call minpac#add('lervag/vimtex')
 call minpac#add('godlygeek/tabular')
 call minpac#add('machakann/vim-highlightedyank')
 call minpac#add('justinmk/vim-sneak')
-call minpac#add('salsifis/vim-transpose') " testing
-call minpac#add('glacambre/firenvim', { 'type': 'opt', 'do': 'packadd firenvim | call firenvim#install(0)'})
+" call minpac#add('salsifis/vim-transpose') " testing
 "LSP language server protocal
-call minpac#add('Vimjas/vim-python-pep8-indent')
+" call minpac#add('Vimjas/vim-python-pep8-indent')
 call minpac#add('rhysd/vim-clang-format')
 call minpac#add('junegunn/fzf')
 call minpac#add('roxma/nvim-yarp')
 call minpac#add('ncm2/ncm2')
 call minpac#add('ncm2/ncm2-bufword')
 call minpac#add('ncm2/ncm2-path')
-call minpac#add('Shougo/deoplete.nvim') 
+" call minpac#add('Shougo/deoplete.nvim') 
 call minpac#add('deoplete-plugins/deoplete-jedi',
         \ {'do': '!git submodule update --init'})
 call minpac#add('autozimu/LanguageClient-neovim',
@@ -235,8 +235,8 @@ endfun
 """""""""""""""""""""""""""""""""""""""""""""
 
 """""" deoplete
-let g:deoplete#enable_at_startup = 1
-"let g:python3_host_prog = expand('~/anaconda3/bin/python')
+" let g:deoplete#enable_at_startup = 1
+" let g:python3_host_prog = expand('~/anaconda3/bin/python')
 
 """""""""""""""""""""""""""""""""""""""""""""
 
@@ -282,8 +282,11 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 """""""""""""""""""""""""""""""""""""""""""""
 """ LanguageClient-neovim
+""" TODO: latex texlab integration https://github.com/autozimu/LanguageClient-neovim/issues/923
+""" - pip install python-language-server
 let g:LanguageClient_serverCommands = {
-    \ 'python': ['pyls'],
+    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+    \ 'python': ['pyls'], 
     \ 'go': ['gopls'],
     \ 'cpp': ['clangd-10'],
     \ 'sh': ['bash-language-server', 'start'],
@@ -296,15 +299,8 @@ set completefunc=LanguageClient#complete
 set formatexpr=LanguageClient#textDocument_rangeFormatting_sync()
 " Run gofmt on save
 autocmd BufWritePre *.go :call LanguageClient#textDocument_formatting_sync()
+autocmd BufWritePre *.rs :call LanguageClient#textDocument_formatting_sync()
 """""""""""""""""""""""""""""""""""""""""""""
-
-"""""""""""""""""""""""""""""""""""""""""""""
-""" firenvim
-if exists('g:started_by_firenvim')
-  packadd firenvim
-endif
-"""""""""""""""""""""""""""""""""""""""""""""
-
 
 """""""""""""""""""""""""""""""""""""""""""""
 """ vim-Transpose 

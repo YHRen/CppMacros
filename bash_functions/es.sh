@@ -8,9 +8,13 @@ es () {
     lang_name=$(basename "$(dirname "$(pwd)")") 
     file_name=$(basename "$(pwd)")
     # map language name to suffix
-    local -A name_map=( [bash]=sh [python]=py [vimscript]=vim [go]=go )
+    local -A name_map=( [bash]=sh [python]=py [vimscript]=vim [go]=go [rust]=rs )
     if [[ -v "name_map[$lang_name]" ]]; then
-        file_name="${file_name}"."${name_map[$lang_name]}"
+        if [[ "$lang_name" != "rust" ]]; then
+            file_name="${file_name}"."${name_map[$lang_name]}"
+        else
+            file_name="src/lib.rs"
+        fi
     else
         echo "${lang_name}" unsupported yet 1>&2
         exit 1
