@@ -102,7 +102,7 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=98'
 gitdir="$HOME/github/yhren"
 #pandoc="/usr/local/bin/pandoc"
 pandoc="/home/yren/anaconda3/bin/pandoc"
-export TASKRC="$gitdir/CppMacros/taskrc"
+#export TASKRC="$gitdir/CppMacros/taskrc"
 
 export PS1='\[\033[1;34m\]\h$\[\033[0m\]'
 
@@ -132,6 +132,7 @@ alias g="grep"
 alias v="nvim -O"
 alias m="make"
 alias bc="bc -q"
+alias cs="cht.sh"
 alias crt="cp $gitdir/CppMacros/macros.h ./main.cpp; cp $gitdir/CppMacros/Makefile ."
 alias vulcan="ssh -C -D 5150 vulcan"
 alias pylab="jupyter lab"
