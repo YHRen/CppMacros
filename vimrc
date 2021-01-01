@@ -40,7 +40,7 @@ let g:netrw_browse_split=1
 let g:netrw_winsize=25
 let g:netrw_altv=1
 let g:netrw_liststyle=3
-let g:netrw_list_hide=netrw_gitignore#Hide()
+"let g:netrw_list_hide=netrw_gitignore#Hide()
 "}}}
 
 pa minpac
@@ -51,6 +51,7 @@ call minpac#add('tpope/vim-surround')
 call minpac#add('tpope/vim-repeat')
 call minpac#add('tpope/vim-commentary')
 call minpac#add('SirVer/ultisnips')
+call minpac#add('honza/vim-snippets')
 call minpac#add('vimwiki/vimwiki')
 call minpac#add('itchyny/lightline.vim')
 call minpac#add('lervag/vimtex')

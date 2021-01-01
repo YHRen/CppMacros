@@ -188,5 +188,5 @@ export TERM=xterm-256color
 
 # conda env
 source .bash_profile
-
+source ~/.fonts/*.sh
 # neofetch
