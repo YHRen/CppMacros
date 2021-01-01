@@ -72,7 +72,7 @@ plugins=(git zsh-syntax-highlighting zsh-autosuggestions)
 
 source $ZSH/oh-my-zsh.sh
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=98'
-
+setopt HIST_IGNORE_SPACE
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -128,7 +128,10 @@ alias m="make"
 alias bc="bc -q"
 alias crt="cp $gitdir/CppMacros/macros.h ./main.cpp; cp $gitdir/CppMacros/Makefile ."
 alias vulcan="ssh -C -D 5150 vulcan"
+alias bnl="ssh -C -D 5150 bnl"
 alias pylab="jupyter lab"
+alias w3m="w3m -sixel -o display_image=1"
+export W3M_IMG2SIXEL="/usr/local/bin/img2sixel"
 
 md2pdf () { fname=$1; echo $fname;
 	$pandoc "$1" \
@@ -166,6 +169,5 @@ else
 fi
 
 export TERM=xterm-256color
-
 # conda env
 source .bash_profile
