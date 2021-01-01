@@ -100,8 +100,9 @@ setopt HIST_IGNORE_SPACE
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 gitdir="$HOME/github/yhren"
-pandoc="/usr/local/bin/pandoc"
-export TASKRC="$gitdir/CppMacros/taskrc"
+#pandoc="/usr/local/bin/pandoc"
+pandoc="/home/yren/anaconda3/bin/pandoc"
+#export TASKRC="$gitdir/CppMacros/taskrc"
 
 export PS1='\[\033[1;34m\]\h$\[\033[0m\]'
 
@@ -120,32 +121,49 @@ else
 
 fi
 
+#  shorthand for submiting an exercise using exercism
+#  learn more about exercism: exercism.io/
+# important to use "command exercism" so the function does
+# not call itself recursively.
+
 alias l="ls -lthsrG"
 alias h="history"
 alias g="grep"
-alias v="nvim"
+alias v="nvim -O"
 alias m="make"
 alias bc="bc -q"
+alias cs="cht.sh"
 alias crt="cp $gitdir/CppMacros/macros.h ./main.cpp; cp $gitdir/CppMacros/Makefile ."
 alias vulcan="ssh -C -D 5150 vulcan"
 alias bnl="ssh -C -D 5150 bnl"
 alias pylab="jupyter lab"
 alias w3m="w3m -sixel -o display_image=1"
 export W3M_IMG2SIXEL="/usr/local/bin/img2sixel"
+alias es="$HOME/.local/bin/es.sh"
 
+function exercism {
+    case "$1" in
+        download) __exercism_download "$@" ;;
+        submit) es ;;
+        *) command exercism "$@" ;;
+    esac
+}
+
+function __exercism_download {
+    out=($(command exercism "$@"))
+    [[ -d "${out[-1]}" ]] && cd "${out[-1]}" || echo "cd fails" >&2
+}
 md2pdf () { fname=$1; echo $fname;
 	$pandoc "$1" \
 		-V geometry:margin=1in \
 		-s --pdf-engine=xelatex \
 		--variable urlcolor=cyan \
-		-F mermaid-filter \
 		-o ${fname%.md}.pdf; }
 
 md2html () { fname=$1; echo $fname;
 	$pandoc "$1" \
 		-V geometry:margin=1in \
 		--variable urlcolor=cyan \
-		-F mermaid-filter \
 		-o ${fname%.md}.html; }
 
 tunnel () {
@@ -171,3 +189,5 @@ fi
 export TERM=xterm-256color
 # conda env
 source .bash_profile
+source ~/.fonts/*.sh
+# neofetch
