@@ -16,8 +16,10 @@ for online coding competition.
 
 #### i3wm
 ```
-apt install i3
+apt install i3 i3blocks
 ln -s github/yhren/CppMacros/i3_config .config/i3/config
+git clone https://github.com/vivien/i3blocks-contrib ~/.config/i3blocks
+ln -s github/yhren/CppMacros/i3blocks_config .config/i3blocks/config
 ```
 
 #### NeoVim
@@ -38,6 +40,13 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 ln -s github/yhren/CppMacros/zshrc .zshrc
 ```
+
+#### alacritty
+```
+mkdir ~/.config/alacritty/
+ln -s alacritty.yml ~/.config/alacritty/alacritty.yml
+```
+
 
 #### Git
 ```

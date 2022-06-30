@@ -39,6 +39,7 @@ exec --no-startup-id nm-applet
 exec --no-startup-id systemctl --user enable pulseaudio
 exec --no-startup-id gnome-settings-daemon
 exec --no-startup-id setxkbmap -option caps:ctrl_modifier
+exec --no-startup-id xmodmap -e "pointer = 1 25 3 4 5 6 7 8 9"
 #exec --no-startup-id setxkbmap -option caps:ctrl_modifier -option altwin:swap_alt_win
 #exec --no-startup-id synclient VertScrollDelta=-113
 #exec --no-startup-id xinput set-prop "SynPS/2 Synaptics Touchpad" "Synaptics Scrolling Distance" -113, 113
@@ -51,7 +52,7 @@ exec --no-startup-id setxkbmap -option caps:ctrl_modifier
 exec_always --no-startup-id xsetroot -solid "#000000" 
 
 # class                 border  backgr. text    indicator child_border
-client.focused          #136377 #136377 #136377 #fcec0c   #d1c5c0
+client.focused          #c2fc03 #136377 #00fff0 #fcec0c   #d1c5c0
 client.focused_inactive #333333 #222222 #888888 #292d2e   #222222
 client.unfocused        #333333 #222222 #888888 #292d2e   #222222
 client.urgent           #fcec0c #fcec0c #fcec0c #900000   #900000
@@ -156,13 +157,13 @@ bindsym $mod+minus scratchpad show
 # We use variables to avoid repeating the names in multiple places.
 set $ws1 "1: "
 set $ws2 "2"
-set $ws3 "3"
+set $ws3 "3: "
 set $ws4 "4: "
-set $ws5 "5"
+set $ws5 "5: "
 set $ws6 "6"
-set $ws7 "7"
+set $ws7 "7: "
 set $ws8 "8"
-set $ws9 "9"
+set $ws9 "9: "
 set $ws_music "Music "
 
 
@@ -236,7 +237,7 @@ bindsym $mod+r mode "resize"
 # finds out, if available)
 bar {
         #status_command i3status
-        font pango:DejaVu Sans Mono, FontAwesome 10
+        font pango:FiraCode Nerd Font Mono, FontAwesome 8
         status_command i3blocks
 }
 
@@ -251,13 +252,21 @@ bar {
 #######################################################################
 # exec i3-config-wizard
 default_border pixel 2
-hide_edge_borders both
+# hide_edge_borders both
 
-# music player, audio control
-exec_always --no-startup-id audacious
+# startup apps
+# exec_always --no-startup-id audacious
 exec_always --no-startup-id pavucontrol
-assign [class="^Audacious$"] $ws_music
+exec --no-startup-id gnome-control-center
+exec --no-startup-id google-chrome
+# assign [class="Microsoft Teams - Preview"] $ws4
+# assign [class="^zoom$"] $ws5
+assign [class="^Google-chrome$"] $ws4
+# assign [class="^vlc$"] $ws9
+# assign [class="^calibre$"] $ws9
+# assign [class="^Zotero$"] $ws7
+# assign [class="^Audacious$"] $ws_music
 assign [class="^Pavucontrol$"] $ws_music
-
-exec_always --no-startup-id teams
-assign [class="Microsoft Teams - Preview"] $ws4
+assign [class="^Gnome-control-center$"] $ws_music
+# compositor for Xorg
+exec_always --no-startup-id picom

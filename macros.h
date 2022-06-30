@@ -39,6 +39,9 @@ typedef vector<vi>       vvi;
 typedef vector<ii>       vii;
 typedef long long        ll;
 
+template<class T> inline void amin(T &x, const T &y) { if (y<x) x=y; }
+template<class T> inline void amax(T &x, const T &y) { if (x<y) x=y; }
+
 #ifdef DEBUG
 #define trace(...)       __f(#__VA_ARGS__, __VA_ARGS__)
 #define debug(args...)   {dbg,args; clog<<endl;}
