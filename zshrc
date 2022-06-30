@@ -8,7 +8,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="pygmalion"
+ZSH_THEME="muse"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -68,10 +68,10 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-syntax-highlighting zsh-autosuggestions)
+plugins=(git zsh-syntax-highlighting zsh-autosuggestions compleat)
 
 source $ZSH/oh-my-zsh.sh
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=98'
+# ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=98'
 setopt HIST_IGNORE_SPACE
 # User configuration
 
@@ -101,18 +101,17 @@ setopt HIST_IGNORE_SPACE
 
 gitdir="$HOME/github/yhren"
 #pandoc="/usr/local/bin/pandoc"
-pandoc="/home/yren/anaconda3/bin/pandoc"
-#export TASKRC="$gitdir/CppMacros/taskrc"
+pandoc="$HOME/anaconda3/bin/pandoc"
 
-export PS1='\[\033[1;34m\]\h$\[\033[0m\]'
+# export PS1='\[\033[1;34m\]\h$\[\033[0m\]'
 
 ## OS dependent
 if [ "$(uname 2>/dev/null)" = "Darwin" ]; then
-	alias o="open"
-    alias u="brew update"
+	alias o=" open"
+    alias u=" brew update"
 elif [ "$(uname 2>/dev/null)" = "Linux" ]; then
-	alias o="xdg-open"
-	alias u="yes | sudo apt update &&\
+	alias o=" xdg-open"
+	alias u=" yes | sudo apt update &&\
 		yes | sudo apt upgrade &&\
 		yes | sudo apt autoremove"
 	alias pbcopy='xclip -selection clipboard'
@@ -130,13 +129,18 @@ alias l="ls -lthsrG"
 alias h="history"
 alias g="grep"
 alias v="nvim -O"
+alias vd="nvim -d"
+alias t="task"
+alias tm="$HOME/.local/bin/tm.sh"
 alias m="make"
 alias bc="bc -q"
 alias cs="cht.sh"
 alias crt="cp $gitdir/CppMacros/macros.h ./main.cpp; cp $gitdir/CppMacros/Makefile ."
-alias vulcan="ssh -C -D 5150 vulcan"
-alias bnl="ssh -C -D 5150 bnl"
+alias dotfile='/usr/bin/git --git-dir=$HOME/.myconf/ --work-tree=$HOME'
+alias vulcan="ssh -N -L 8888:localhost:8888 -L 6006:localhost:6006 vulcan"
+alias bnl="ssh -N -C -D 5150 bnl"
 alias pylab="jupyter lab"
+alias pip='noglob pip'
 alias w3m="w3m -sixel -o display_image=1"
 export W3M_IMG2SIXEL="/usr/local/bin/img2sixel"
 alias es="$HOME/.local/bin/es.sh"
@@ -188,6 +192,84 @@ fi
 
 export TERM=xterm-256color
 # conda env
-source .bash_profile
-source ~/.fonts/*.sh
-# neofetch
+
+if [[ -d $HOME/.fonts ]] && ls $HOME/.fonts/*.sh 1> /dev/null 2>&1;
+then  
+    source ~/.fonts/*.sh
+fi
+
+
+# per host setting
+_hostname=$(hostname)
+if [[ "$_hostname" == "LCC-165284.local" ]]; then
+    __conda_setup="$('/usr/local/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+    if [ $? -eq 0 ]; then
+        eval "$__conda_setup"
+    else
+        if [ -f "/Users/yren/anaconda3/etc/profile.d/conda.sh" ]; then
+# . "/Users/yren/anaconda3/etc/profile.d/conda.sh"  # commented out by conda initialize
+        else
+# export PATH="/Users/yren/anaconda3/bin:$PATH"  # commented out by conda initialize
+        fi
+    fi
+    unset __conda_setup
+    export PATH="$HOME/.local/bin:$PATH"
+elif [[ "$_hostname" == "ryzen" ]]; then
+        __conda_setup="$('/home/yren/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+    if [ $? -eq 0 ]; then
+        eval "$__conda_setup"
+    else
+        if [ -f "/home/yren/anaconda3/etc/profile.d/conda.sh" ]; then
+# . "/home/yren/anaconda3/etc/profile.d/conda.sh"  # commented out by conda initialize
+        else
+# export PATH="/home/yren/anaconda3/bin:$PATH"  # commented out by conda initialize
+        fi
+    fi
+    unset __conda_setup
+    export PATH="/usr/local/cuda/bin:$PATH"
+    export PATH="$PATH:$HOME/julialang/bin"
+    export PATH=$PATH:/usr/local/go/bin
+    export PATH="$PATH:$(go env GOPATH)/bin"
+    export PATH="$(yarn global bin):$PATH"
+    eval $(thefuck --alias) # fuck
+    alias hid_link='sudo ~/.local/bin/hid_link'
+    export PATH="$HOME/Applications/adb:$PATH"
+    export PATH="$HOME/Applications/Elm:$PATH"
+    export PATH="$HOME/.cargo/bin:$PATH"
+    alias vncmac="x0vncserver -localhost -rfbport 5900 -rfbauth ~/.vnc/passwd"
+    alias backup="rsync -avzh $HOME/Documents/ /media/yren/ssd500G/"
+elif [[ "$_hostname" == "rz21" || "$_hostname" == "thrip" ]]; then
+    export PATH="$PATH:/usr/local/go/bin"
+    export PATH="$(yarn global bin):$PATH"
+    export PATH="$HOME/.cargo/bin:$PATH"
+    export PATH="$HOME/.local/share/nvim/lsp_servers/pyright/node_modules/.bin:$PATH"
+    export PATH="$HOME/.local/share/nvim/lsp_servers/clangd/clangd/bin:$PATH"
+    export PATH="$HOME/.local/share/zotero/Zotero_linux-x86_64/:$PATH"
+# ~/.local/share/nvim/lsp_servers/clangd 
+fi
+
+if [ -f ~/.ssh/agent.env ] ; then
+    . ~/.ssh/agent.env > /dev/null
+    if ! kill -0 $SSH_AGENT_PID > /dev/null 2>&1; then
+        echo "Stale agent file found. Spawning a new agent. "
+        eval `ssh-agent | tee ~/.ssh/agent.env`
+        ssh-add
+    fi
+else
+    echo "Starting ssh-agent"
+    eval `ssh-agent | tee ~/.ssh/agent.env`
+    ssh-add
+fi
+
+## some app env 
+# export TASKRC="~/.config/tasks/.taskrc"
+# export TIMEWARRIORDB="~/.config/syncdata/timew/"
+# export TZ_LIST="Europe/Paris,US/Central,US/Pacific,Asia/Shanghai"
+
+# test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+autoload -Uz bashcompinit && bashcompinit
+
+# alias luamake=/home/yren/github/tools/lua-language-server/3rd/luamake/luamake
+
+eval "$(/home/yren/anaconda3/bin/conda shell.zsh hook)" 
