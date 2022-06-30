@@ -19,7 +19,7 @@ for online coding competition.
 apt install i3 i3blocks
 ln -s github/yhren/CppMacros/i3_config .config/i3/config
 git clone https://github.com/vivien/i3blocks-contrib ~/.config/i3blocks
-ln -s github/yhren/CppMacros/i3blocks_config .config/i3blocks/config
+ln -s github/yhren/CppMacros/i3blocks_config ~/.config/i3blocks/config
 ```
 
 #### NeoVim
@@ -46,7 +46,6 @@ ln -s github/yhren/CppMacros/zshrc .zshrc
 mkdir ~/.config/alacritty/
 ln -s alacritty.yml ~/.config/alacritty/alacritty.yml
 ```
-
 
 #### Git
 ```
