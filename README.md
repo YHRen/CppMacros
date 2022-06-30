@@ -2,6 +2,10 @@
 
 for online coding competition.
 
+## TODO:
+- [ ] convert repo path to `$(pwd)` as `ln -s` requires a absolute path
+- [ ] write a shell script to establish all the softlinks.
+
 ## unison 
 ### light
 * jrnl, `~/.jrnl_config`
