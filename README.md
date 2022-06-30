@@ -38,14 +38,18 @@ apt install zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-ln -s ~/github/yhren/CppMacros/zshrc .zshrc
+ln -s github/yhren/CppMacros/zshrc .zshrc
 ```
 
 #### alacritty
 ```
 mkdir ~/.config/alacritty/
 ln -s alacritty.yml ~/.config/alacritty/alacritty.yml
+wget https://github.com/tonsky/FiraCode/releases/download/6.2/Fira_Code_v6.2.zip
+
 ```
+install FiraCode Nerd Font Mono, click ttf.
+
 
 #### Git
 ```

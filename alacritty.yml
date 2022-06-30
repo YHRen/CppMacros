@@ -82,8 +82,7 @@ env:
 font:
   # Normal (roman) font face
   normal: 
-    family: "FiraCode"
-    # family: "FiraCode Nerd Font Mono"
+    family: "FiraCode Nerd Font Mono"
   #
   # Default:
   #   - (macOS) Menlo
