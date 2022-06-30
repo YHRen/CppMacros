@@ -242,9 +242,11 @@ elif [[ "$_hostname" == "rz21" || "$_hostname" == "thrip" ]]; then
     export PATH="$PATH:/usr/local/go/bin"
     export PATH="$(yarn global bin):$PATH"
     export PATH="$HOME/.cargo/bin:$PATH"
+    export PATH="$HOME/.local/share/zotero/Zotero_linux-x86_64/:$PATH"
     export PATH="$HOME/.local/share/nvim/lsp_servers/pyright/node_modules/.bin:$PATH"
     export PATH="$HOME/.local/share/nvim/lsp_servers/clangd/clangd/bin:$PATH"
-    export PATH="$HOME/.local/share/zotero/Zotero_linux-x86_64/:$PATH"
+    export PATH="$HOME/.local/share/nvim/lsp_servers/marksman:$PATH"
+    export PATH="$HOME/.local/share/nvim/lsp_servers/yamlls/node_modules/yaml-language-server/bin:$PATH"
 # ~/.local/share/nvim/lsp_servers/clangd 
 fi
 
