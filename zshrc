@@ -135,7 +135,7 @@ alias tm="$HOME/.local/bin/tm.sh"
 alias m="make"
 alias bc="bc -q"
 alias cs="cht.sh"
-alias crt="cp $gitdir/CppMacros/macros.h ./main.cpp; cp $gitdir/CppMacros/Makefile ."
+alias crt="cp $gitdir/CppMacros/macros.h ./main.cpp; cp $gitdir/CppMacros/Makefile .; cp $gitdir/CppMacros/.vimspector.json .;"
 alias dotfile='/usr/bin/git --git-dir=$HOME/.myconf/ --work-tree=$HOME'
 alias vulcan="ssh -N -L 8888:localhost:8888 -L 6006:localhost:6006 vulcan"
 alias bnl="ssh -N -C -D 5150 bnl"

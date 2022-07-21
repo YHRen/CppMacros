@@ -1,0 +1,37 @@
+{
+  "configurations": {
+    "CodeLLDB": {
+      "adapter": "CodeLLDB",
+      "variables": {
+        "BUILDME": {
+          "shell": "g++ -o ${workspaceRoot}/main -g -DDEBUG -std=c++17 ${workspaceRoot}/main.cpp"
+        }
+      },
+      "configuration": {
+        "request": "launch",
+        "program": "${workspaceRoot}/main"
+      },
+      "exception": {
+        "caught": "",
+        "uncaught": "Y"
+      }
+    },
+    "CodeLLDB -- input": {
+      "adapter": "CodeLLDB",
+      "variables": {
+        "BUILDME": {
+          "shell": "g++ -o ${workspaceRoot}/main -g -DDEBUG -std=c++17 ${workspaceRoot}/main.cpp"
+        }
+      },
+      "configuration": {
+        "request": "launch",
+        "program": "${workspaceRoot}/main",
+        "stdio": ["${workspaceRoot}/input", "${workspaceRoot}/out.txt", "${workspaceRoot}/out.log"]
+      },
+      "exception": {
+        "caught": "",
+        "uncaught": "Y"
+      }
+    }
+  }
+}
