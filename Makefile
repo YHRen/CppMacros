@@ -3,7 +3,7 @@ all: main.cpp
 	$(CXX) -std=c++17 -O3 main.cpp -o main 
 
 d: main.cpp
-	$(CXX) -std=c++17 -DDEBUG main.cpp -o main 
+	$(CXX) -std=c++17  -fsanitize=address -D_LIBCPP_DEBUG=1 -DDEBUG main.cpp -o main 
 
 c:
 	$(MAKE) xclip_way || $(MAKE) clip_exe_way || $(MAKE) clip_mac_way

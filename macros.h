@@ -75,8 +75,13 @@ void __f(const char* names, Arg1&& arg1, Args&&... args){
 auto ____ =[]() { std::ios::sync_with_stdio(0); cin.tie(0); return nullptr; }();
 
 int main( int argc, char * argv[] ){
-  int n; 
-  cin >> n; 
-  vi v(n); input(v);
+    Solution sol;
+    
+
+
+
+  /* int n; */ 
+  /* cin >> n; */ 
+  /* vi v(n); input(v); */
   return 0;
 }
