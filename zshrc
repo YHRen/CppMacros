@@ -141,7 +141,7 @@ alias dotfile='/usr/bin/git --git-dir=$HOME/.myconf/ --work-tree=$HOME'
 alias vulcan="ssh -N -L 8888:localhost:8888 -L 6006:localhost:6006 vulcan"
 alias bnl="ssh -N -C -D 5150 bnl"
 alias pylab="jupyter lab"
-alias pip='noglob pip'
+# alias pip='noglob pip'
 alias w3m="w3m -sixel -o display_image=1"
 export W3M_IMG2SIXEL="/usr/local/bin/img2sixel"
 alias es="$HOME/.local/bin/es.sh"
@@ -216,17 +216,20 @@ if [[ "$_hostname" == "LCC-165284.local" ]]; then
     unset __conda_setup
     export PATH="$HOME/.local/bin:$PATH"
 elif [[ "$_hostname" == "ryzen" ]]; then
-        __conda_setup="$('/home/yren/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+    # >>> conda initialize >>>
+    # !! Contents within this block are managed by 'conda init' !!
+    __conda_setup="$('/home/yren/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
     if [ $? -eq 0 ]; then
         eval "$__conda_setup"
     else
         if [ -f "/home/yren/anaconda3/etc/profile.d/conda.sh" ]; then
-# . "/home/yren/anaconda3/etc/profile.d/conda.sh"  # commented out by conda initialize
+            . "/home/yren/anaconda3/etc/profile.d/conda.sh"
         else
-# export PATH="/home/yren/anaconda3/bin:$PATH"  # commented out by conda initialize
+            export PATH="/home/yren/anaconda3/bin:$PATH"
         fi
     fi
     unset __conda_setup
+    # <<< conda initialize <<<
     export PATH="/usr/local/cuda/bin:$PATH"
     export PATH="$PATH:$HOME/julialang/bin"
     export PATH=$PATH:/usr/local/go/bin
@@ -239,16 +242,14 @@ elif [[ "$_hostname" == "ryzen" ]]; then
     export PATH="$HOME/.cargo/bin:$PATH"
     alias vncmac="x0vncserver -localhost -rfbport 5900 -rfbauth ~/.vnc/passwd"
     alias backup="rsync -avzh $HOME/Documents/ /media/yren/ssd500G/"
+    export PATH="$HOME/.local/share/zotero/Zotero_linux-x86_64/:$PATH"
+    export PATH="$HOME/.local/share/nvim/mason/bin/:$PATH"
 elif [[ "$_hostname" == "rz21" || "$_hostname" == "thrip" ]]; then
     export PATH="$PATH:/usr/local/go/bin"
     export PATH="$(yarn global bin):$PATH"
     export PATH="$HOME/.cargo/bin:$PATH"
     export PATH="$HOME/.local/share/zotero/Zotero_linux-x86_64/:$PATH"
-    export PATH="$HOME/.local/share/nvim/lsp_servers/pyright/node_modules/.bin:$PATH"
-    export PATH="$HOME/.local/share/nvim/lsp_servers/clangd/clangd/bin:$PATH"
-    export PATH="$HOME/.local/share/nvim/lsp_servers/marksman:$PATH"
-    export PATH="$HOME/.local/share/nvim/lsp_servers/yamlls/node_modules/yaml-language-server/bin:$PATH"
-# ~/.local/share/nvim/lsp_servers/clangd 
+    export PATH="$HOME/.local/share/nvim/mason/bin/:$PATH"
 fi
 
 if [ -f ~/.ssh/agent.env ] ; then
@@ -275,4 +276,4 @@ autoload -Uz bashcompinit && bashcompinit
 
 # alias luamake=/home/yren/github/tools/lua-language-server/3rd/luamake/luamake
 
-eval "$(/home/yren/anaconda3/bin/conda shell.zsh hook)" 
+
