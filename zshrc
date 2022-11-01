@@ -202,7 +202,8 @@ fi
 
 # per host setting
 _hostname=$(hostname)
-if [[ "$_hostname" == "LCC-165284.local" ]]; then
+kernel_name=$(uname -s)
+if [[ "$kernel_name" == "Darwin" ]]; then
     __conda_setup="$('/usr/local/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
     if [ $? -eq 0 ]; then
         eval "$__conda_setup"
@@ -215,7 +216,7 @@ if [[ "$_hostname" == "LCC-165284.local" ]]; then
     fi
     unset __conda_setup
     export PATH="$HOME/.local/bin:$PATH"
-elif [[ "$_hostname" == "ryzen" ]]; then
+elif [[ "$kernel_name" == "Linux" ]]; then
     # >>> conda initialize >>>
     # !! Contents within this block are managed by 'conda init' !!
     __conda_setup="$('/home/yren/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
@@ -230,26 +231,18 @@ elif [[ "$_hostname" == "ryzen" ]]; then
     fi
     unset __conda_setup
     # <<< conda initialize <<<
+ 
     export PATH="/usr/local/cuda/bin:$PATH"
-    export PATH="$PATH:$HOME/julialang/bin"
     export PATH=$PATH:/usr/local/go/bin
     export PATH="$PATH:$(go env GOPATH)/bin"
     export PATH="$(yarn global bin):$PATH"
     eval $(thefuck --alias) # fuck
-    alias hid_link='sudo ~/.local/bin/hid_link'
-    export PATH="$HOME/Applications/adb:$PATH"
-    export PATH="$HOME/Applications/Elm:$PATH"
     export PATH="$HOME/.cargo/bin:$PATH"
     alias vncmac="x0vncserver -localhost -rfbport 5900 -rfbauth ~/.vnc/passwd"
     alias backup="rsync -avzh $HOME/Documents/ /media/yren/ssd500G/"
     export PATH="$HOME/.local/share/zotero/Zotero_linux-x86_64/:$PATH"
     export PATH="$HOME/.local/share/nvim/mason/bin/:$PATH"
-elif [[ "$_hostname" == "rz21" || "$_hostname" == "thrip" ]]; then
-    export PATH="$PATH:/usr/local/go/bin"
-    export PATH="$(yarn global bin):$PATH"
-    export PATH="$HOME/.cargo/bin:$PATH"
-    export PATH="$HOME/.local/share/zotero/Zotero_linux-x86_64/:$PATH"
-    export PATH="$HOME/.local/share/nvim/mason/bin/:$PATH"
+    # alias hid_link='sudo ~/.local/bin/hid_link'
 fi
 
 if [ -f ~/.ssh/agent.env ] ; then
