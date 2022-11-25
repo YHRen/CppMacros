@@ -231,8 +231,8 @@ elif [[ "$kernel_name" == "Linux" ]]; then
     fi
     unset __conda_setup
     # <<< conda initialize <<<
- 
     export PATH="/usr/local/cuda/bin:$PATH"
+    export PATH="$PATH:$HOME/julialang/bin"
     export PATH=$PATH:/usr/local/go/bin
     export PATH="$PATH:$(go env GOPATH)/bin"
     export PATH="$(yarn global bin):$PATH"
